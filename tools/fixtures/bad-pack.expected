@@ -1,0 +1,22 @@
+manifest.json: unsupported-version
+manifest.json: bad-slug
+manifest.json: missing-license
+manifest.json: missing-author
+manifest.json: missing-source
+manifest.json [script]: duplicate
+manifest.json [script]: duplicate-file
+manifest.json [escape]: outside-folder
+manifest.json [Gone Icon]: bad-name
+manifest.json [Gone Icon]: missing-file
+: too-many
+: file-name-clash
+link.svg: symlink
+big.svg: too-large
+entity.svg: entity
+external.svg: external-reference
+fill-url.svg: external-reference
+import.svg: external-reference (@import)
+js-href.svg: javascript-url
+not-svg.svg: not-svg
+onload.svg: event-handler
+script.svg: script

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "slug": "Bad Slug",
+  "label": "A pack that must not ship",
+  "author": "",
+  "icons": [
+    { "file": "script.svg", "name": "script" },
+    { "file": "SCRIPT.svg", "name": "script" },
+    { "file": "../escape.svg", "name": "escape" },
+    { "file": "gone.svg", "name": "Gone Icon" }
+  ]
+}

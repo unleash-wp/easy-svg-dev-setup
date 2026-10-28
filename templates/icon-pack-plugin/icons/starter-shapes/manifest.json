@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "slug": "starter-shapes",
+  "label": "Starter Shapes",
+  "license": "GPL-3.0-or-later",
+  "author": "Your name",
+  "source": "https://example.com/my-icon-pack",
+  "icons": [
+    { "file": "circle.svg", "name": "circle", "label": "Circle", "keywords": ["round", "dot"] },
+    { "file": "square.svg", "name": "square", "label": "Square", "keywords": ["box", "rect"] },
+    { "file": "triangle-up.svg", "name": "triangle-up", "label": "Triangle up", "keywords": ["arrow", "play"] }
+  ]
+}

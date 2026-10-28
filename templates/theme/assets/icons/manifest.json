@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "slug": "acme-theme",
+  "label": "ACME theme icons",
+  "license": "GPL-2.0-or-later",
+  "author": "ACME agency",
+  "source": "https://example.com/acme-theme",
+  "icons": [
+    { "file": "circle.svg", "name": "circle", "label": "Circle", "keywords": ["round", "dot"] },
+    { "file": "square.svg", "name": "square", "label": "Square", "keywords": ["box", "rect"] },
+    { "file": "triangle-up.svg", "name": "triangle-up", "label": "Triangle up", "keywords": ["arrow", "play"] }
+  ]
+}
