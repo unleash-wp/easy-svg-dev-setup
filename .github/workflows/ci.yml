@@ -14,7 +14,7 @@ jobs:
       # The floor the templates promise, and something current.
       matrix: { php: ['7.4', '8.4'] }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with: { php-version: '${{ matrix.php }}', tools: none }
       # tools/check-hooks.php and the tests are PHP 8; what gets copied into sites is 7.4.
@@ -35,7 +35,7 @@ jobs:
   standards:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with: { php-version: '8.4', tools: composer }
       - name: WordPress Coding Standards
