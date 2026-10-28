@@ -38,6 +38,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with: { php-version: '8.4', tools: composer }
+      - name: The pack template is a valid Composer package
+        run: composer validate --strict templates/icon-pack-plugin/composer.json
       - name: WordPress Coding Standards
         run: |
           composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true

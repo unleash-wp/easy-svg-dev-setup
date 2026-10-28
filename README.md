@@ -49,6 +49,7 @@ templates/       copy and rename
   wpbakery/           a WPBakery element with the easy_svg_icon param
   php-only-block/     a PHP-only block with an icon picker (WordPress 7.0+)
 docs/icon-packs.md  manifest, security checklist, licences
+docs/rollout.md     Composer and WP-CLI across many sites
 tools/           pack checker, hook checker
 tests/           php tests/run.php
 ```
@@ -98,6 +99,11 @@ bash tools/build-pack.sh templates/icon-pack-plugin dist
 
 Details, the manifest fields and the licence rules for other people's icons:
 [docs/icon-packs.md](docs/icon-packs.md).
+
+**Many sites.** The pack has a `composer.json` and installs from its own Git
+repository by tag. Pro comes from `composer.unleash-wp.com`, Free from
+wpackagist. The whole recipe for thirty client sites, with the licence from
+`wp-config.php` and WP-CLI aliases: [docs/rollout.md](docs/rollout.md).
 
 **Builders and fields.** Each integration has its own switch under
 **Icons, Features** and stores the same thing: the icon's address. Render it
