@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="easy-svg-dev-setup">
+	<description>WordPress Coding Standards for the snippets and templates.</description>
+
+	<file>snippets</file>
+	<file>templates</file>
+
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+
+	<config name="minimum_supported_wp_version" value="6.6"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress-Extra">
+		<!-- Snippets are copied into other projects; their file names follow what they show, not a class. -->
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- The text domain a copy gets is the copier's; "acme" marks the place. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="acme"/>
+				<element value="acme-icons"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

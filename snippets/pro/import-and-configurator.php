@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: import limits
+ *
  * Bounds of the ZIP and icon font import, and the names the configurator
  * refuses to put on the allow-list.
  *

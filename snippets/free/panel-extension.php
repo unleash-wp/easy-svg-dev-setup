@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: Icons panel extension
+ *
  * Extend the Icons panel. Check EASY_SVG_PANEL_API (3) first: these hooks cannot
  * be probed, and an older plugin answers them differently.
  *

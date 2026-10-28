@@ -59,6 +59,9 @@ function esc_attr( $text ) {
 function sanitize_text_field( $text ) {
 	return trim( strip_tags( (string) $text ) );
 }
+function is_multisite() {
+	return false;
+}
 function current_user_can( $cap ) {
 	return true;
 }

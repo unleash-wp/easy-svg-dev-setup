@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: icon markup
+ *
  * easy_svg_icon_markup( string $markup, string $slug, string $collection )
  *
  * Filters one icon on its way out of easy_svg_icon(), the shortcode and every
@@ -47,7 +49,8 @@ add_filter(
 			return $markup;
 		}
 		$sanitizer = easy_svg_sanitizer();
-		$clean     = null !== $sanitizer ? $sanitizer->sanitize( (string) file_get_contents( $file ) ) : false;
+		// A local theme file, not a URL.
+		$clean = null !== $sanitizer ? $sanitizer->sanitize( (string) file_get_contents( $file ) ) : false; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( ! is_string( $clean ) ) {
 			return '';
 		}

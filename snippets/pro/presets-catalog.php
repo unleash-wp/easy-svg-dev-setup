@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: preset catalog
+ *
  * The preset catalog, for a staging catalog or an end to end test. Not for
  * production: a pack is only downloaded from unleash-wp.com or the host the
  * endpoint filter names, and the token travels to that host.

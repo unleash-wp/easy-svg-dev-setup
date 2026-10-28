@@ -28,11 +28,9 @@ add_filter(
 	'easy_svg_pro_source_dirs',
 	// Untyped and cast: another pack may have broken this list before us.
 	static function ( $dirs ): array {
-		$dirs = is_array( $dirs ) ? $dirs : array();
-		foreach ( glob( __DIR__ . '/icons/*', GLOB_ONLYDIR ) ?: array() as $dir ) {
-			$dirs[] = $dir;
-		}
-		return $dirs;
+		$dirs  = is_array( $dirs ) ? $dirs : array();
+		$found = glob( __DIR__ . '/icons/*', GLOB_ONLYDIR );
+		return array_merge( $dirs, is_array( $found ) ? $found : array() );
 	}
 );
 

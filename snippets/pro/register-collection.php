@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: register a collection
+ *
  * easy_svg_register_icon_collection( string $slug, string $label, string|array $dir_or_icons ): void
  *
  * A collection from code. Pass a folder and it is scanned like a drop-in:
@@ -10,6 +12,7 @@
  * at 10 or later: Pro registers its own folders at 9.
  *
  * The slug given here names the collection. A manifest names the icons only.
+ * Then: `easy_svg_icon( 'acme-ui/close', array( 'label' => __( 'Close', 'acme' ) ) )`.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -36,5 +39,3 @@ add_action(
 		);
 	}
 );
-
-// Then, anywhere: echo easy_svg_icon( 'acme-ui/close', array( 'label' => __( 'Close', 'acme' ) ) );

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: source folders
+ *
  * Icon folders. Pro reads wp-content/easy-svg-icons/<folder>/ and the active
  * theme's assets/icons (child over parent) by itself. These hooks add to that.
  *

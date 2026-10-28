@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: upload limits
+ *
  * Upload bounds of the free plugin. The defaults suit icons; raise them only
  * for a site that really uploads large drawings.
  *
@@ -39,4 +41,6 @@ add_filter(
  * easy_svg_respect_network_filetypes( bool $respect = true ). On multisite the
  * network's upload types win. Return false to let each site decide.
  */
-// add_filter( 'easy_svg_respect_network_filetypes', '__return_false' );
+if ( is_multisite() && defined( 'ACME_SVG_SITE_DECIDES_FILETYPES' ) && ACME_SVG_SITE_DECIDES_FILETYPES ) {
+	add_filter( 'easy_svg_respect_network_filetypes', '__return_false' );
+}

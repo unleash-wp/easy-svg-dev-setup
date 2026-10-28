@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: Icon block markup
+ *
  * easy_svg_pro_registered_icon( string $content, string $reference )
  *
  * One Pro collection icon on its way to WordPress's icon registry. $reference is
