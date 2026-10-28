@@ -172,5 +172,11 @@ $block = calls( 'register_block_type' )[0];
 check( 'php-only block: autoRegister and the icon marker', true === $block[2]['supports']['autoRegister'] && 'icon' === $block[2]['attributes']['iconName']['unleashwp']['component'] );
 check( 'php-only block: render_callback uses the free tag', str_contains( $block[2]['render_callback']( array( 'iconName' => 'acme/star' ) ), 'acme/star' ) );
 
+// A hook snippet drops into mu-plugins as it is; render-an-icon prints and must not.
+foreach ( glob( $root . '/snippets/*/*.php' ) as $file ) {
+	$has = 1 === preg_match( '/^ \* Plugin Name: /m', (string) file_get_contents( $file ) );
+	check( 'header: ' . basename( $file ), 'render-an-icon.php' === basename( $file ) ? ! $has : $has );
+}
+
 echo $failed ? "\n$failed failed\n" : "\nall passed\n";
 exit( $failed ? 1 : 0 );

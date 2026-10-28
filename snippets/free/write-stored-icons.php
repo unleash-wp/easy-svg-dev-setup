@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: write stored icons
+ *
  * Change a stored icon of the free library. Use these rather than
  * wp_update_post(): a re-saved post runs through kses and empties the icon for
  * anybody without unfiltered_html, and the cached icon list stays stale.

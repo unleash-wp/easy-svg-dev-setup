@@ -48,7 +48,8 @@ add_action(
 );
 
 /**
- * One icon_picker value as markup, under either return format.
+ * One icon_picker value as markup, under either return format. In a template:
+ * `echo acme_acf_icon( get_field( 'feature_icon' ), array( 'class' => 'feature__icon' ) );`
  *
  * 'array' gives { type, value } and only type easy_svg is ours: a URL from
  * another tab has a slash too. 'string' gives the value alone.
@@ -70,9 +71,3 @@ function acme_acf_icon( $value, array $args = array() ): string {
 	}
 	return easy_svg_icon( trim( $value ), $args );
 }
-
-/*
- * In the template:
- *
- *     echo acme_acf_icon( get_field( 'feature_icon' ), array( 'class' => 'feature__icon' ) );
- */

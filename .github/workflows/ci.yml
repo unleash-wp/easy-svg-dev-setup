@@ -1,0 +1,45 @@
+name: CI
+on:
+  pull_request: {}
+  push: { branches: [main] }
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      # The floor the templates promise, and something current.
+      matrix: { php: ['7.4', '8.4'] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '${{ matrix.php }}', tools: none }
+      # tools/check-hooks.php and the tests are PHP 8; what gets copied into sites is 7.4.
+      - name: Lint
+        run: |
+          find snippets templates -name '*.php' -print0 | xargs -0 -n1 php -l
+          php -l tools/check-pack.php
+      - name: Packs pass the checker
+        run: |
+          php tools/check-pack.php templates/icon-pack-plugin/icons/starter-shapes
+          php tools/check-pack.php templates/theme/assets/icons
+      - name: The checker refuses a bad pack
+        run: bash tools/test-check-pack.sh
+      - name: Snippets and templates
+        if: matrix.php != '7.4'
+        run: php tests/run.php
+
+  standards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '8.4', tools: composer }
+      - name: WordPress Coding Standards
+        run: |
+          composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require --quiet wp-coding-standards/wpcs:^3.1 phpcompatibility/phpcompatibility-wp:'*'
+          "$(composer global config bin-dir --absolute)/phpcs"

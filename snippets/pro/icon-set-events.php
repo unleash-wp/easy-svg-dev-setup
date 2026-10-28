@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: icon set events
+ *
  * Hear about every change to an icon set. Every path that writes a set comes
  * through one function: the editor, bulk editing, the importers, WP-CLI and
  * client mode.

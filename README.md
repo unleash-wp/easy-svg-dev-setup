@@ -31,6 +31,10 @@ function and constant a snippet uses exists there, with the arguments shown.
 An icon is always addressed as `collection/slug`. The free library is
 `easy-svg`.
 
+Every hook snippet carries a plugin header: copy the file into
+`wp-content/mu-plugins/` and it runs. `render-an-icon.php` is template code;
+paste its lines where the icon belongs.
+
 ## What is in here
 
 ```
@@ -86,10 +90,10 @@ and most need an active licence.
 **Icon pack plugin.** Rename `acme-icons.php`, the folder and the text domain.
 Each folder under `icons/` is one collection, named by its `manifest.json`.
 This is the layout Pro writes when you export collections "As a plugin".
-Check it before every release:
+Check and zip it in one step; one problem in any folder and no ZIP is written:
 
 ```sh
-php tools/check-pack.php templates/icon-pack-plugin/icons/starter-shapes
+bash tools/build-pack.sh templates/icon-pack-plugin dist
 ```
 
 Details, the manifest fields and the licence rules for other people's icons:
@@ -115,13 +119,25 @@ Anywhere else the shortcode works: `[easy_svg_icon name="acme/front-door"]`.
 ```sh
 php tests/run.php
 bash tools/test-check-pack.sh
+phpcs
 php tools/check-hooks.php ../easy-svg ../easy-svg-pro
 ```
 
-`tests/run.php` loads every snippet and template against small stubs and runs
-its callbacks. `check-hooks.php` reads the plugins' source and fails when a
-snippet names a hook, function or constant that is not there. Run it against
-the versions you support.
+- `tests/run.php` loads every snippet and template against small stubs and
+  runs its callbacks. CI runs it on every pull request, with the pack checks
+  and the WordPress Coding Standards (`phpcs.xml.dist`).
+- `check-hooks.php` reads the plugins' source and fails when a snippet names a
+  hook, function or constant that is not there. Run it against the versions
+  you support.
+- `tests/smoke-wordpress.php` runs the templates in a real site with Free, Pro,
+  ACF, Meta Box, Elementor and WPBakery active, the `acme-icons` plugin, a
+  theme carrying `templates/theme/` and the templates loaded from a
+  mu-plugin:
+
+  ```sh
+  wp eval-file tests/smoke-setup.php
+  wp eval-file tests/smoke-wordpress.php --user=admin
+  ```
 
 ## Licence
 

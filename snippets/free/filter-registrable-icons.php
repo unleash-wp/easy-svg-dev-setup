@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: Icon block icons
+ *
  * easy_svg_registrable_icons( array $icons )
  *
  * The whole free library on its way to WordPress's icon registry (7.1+), as a

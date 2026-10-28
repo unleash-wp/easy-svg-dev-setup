@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: add-on sanitizer
+ *
  * For add-on authors: clean SVG exactly the way this site does.
  *
  * easy_svg_sanitizer() is the one function an add-on may rely on. It returns

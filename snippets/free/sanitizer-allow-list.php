@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG snippet: sanitizer allow-list
+ *
  * The three filters that loosen a security decision. Add only what a real icon
  * set needs: every name here is something an uploaded file may then contain.
  *
@@ -34,6 +36,8 @@ add_filter(
  * esw_svg_remove_remote_references( bool $remove = true )
  *
  * Off, an uploaded SVG may fetch from another host on every visitor's behalf.
- * Left commented out.
+ * So only on a site that sets the constant in wp-config.php.
  */
-// add_filter( 'esw_svg_remove_remote_references', '__return_false' );
+if ( defined( 'ACME_SVG_ALLOW_REMOTE_REFERENCES' ) && ACME_SVG_ALLOW_REMOTE_REFERENCES ) {
+	add_filter( 'esw_svg_remove_remote_references', '__return_false' );
+}

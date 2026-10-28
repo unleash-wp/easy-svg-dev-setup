@@ -1,5 +1,7 @@
 <?php
 /**
+ * Plugin Name: Easy SVG Pro snippet: abilities
+ *
  * Easy SVG Pro abilities (WordPress 6.9+ Abilities API), category easy-svg-pro.
  * Switch "AI agent abilities", on by default. Every ability asks for
  * manage_options plus the right of the route behind it, and one whose feature
