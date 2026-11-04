@@ -2,8 +2,8 @@
 /**
  * Easy SVG in a theme. require_once this from functions.php.
  *
- * With Pro and "Theme & folder sources" on, the theme's assets/icons is read by
- * itself, child theme over parent. Its manifest.json names the collection
+ * With Pro and its Collections switch on, the theme's assets/icons folder is
+ * read by itself, child theme over parent. Its manifest.json names the collection
  * (here acme-theme) and the icons. Nothing has to be registered.
  *
  * @package easy-svg-dev-setup
@@ -26,7 +26,7 @@ function acme_theme_icon( string $slug, array $args = array() ): string {
 
 /*
  * Icons kept somewhere else than assets/icons: register that folder.
- * Init at 10 or later, Pro registers its own folders at 9.
+ * On init at priority 10: Pro reads its own folders at 9 and registers at 11.
  */
 add_action(
 	'init',
@@ -45,8 +45,8 @@ add_action(
  *         <?php esc_html_e( 'Talk to us', 'acme' ); ?>
  *     </a>
  *
- * In a block theme template, the Icon block (WordPress 7.1+) with "Multiple
- * collections" on offers the same icons. Without PHP: [easy_svg_icon name="acme-theme/circle"].
+ * In a block theme template, the Icon block (WordPress 7.1+) offers the same
+ * icons. Without PHP: [easy_svg_icon name="acme-theme/circle"].
  *
  * Size from the stylesheet:
  *

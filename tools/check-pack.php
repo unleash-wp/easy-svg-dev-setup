@@ -62,7 +62,7 @@ if ( is_array( $manifest ) ) {
 		$fail( $manifest_path, 'bad-slug', 'lower case letters, digits, - and _' );
 	}
 	// Optional for Pro, required here: a shared pack has to say whose drawings
-	// these are, under what licence, and where they came from.
+	// these are, under what license, and where they came from.
 	foreach ( array( 'label', 'license', 'author', 'source' ) as $key ) {
 		if ( ! isset( $manifest[ $key ] ) || ! is_string( $manifest[ $key ] ) || '' === trim( $manifest[ $key ] ) ) {
 			$fail( $manifest_path, "missing-$key" );
@@ -135,7 +135,7 @@ foreach ( $svgs as $path ) {
 
 	$bytes = (string) file_get_contents( $path );
 	if ( 1 === preg_match( '/<!ENTITY/i', $bytes ) ) {
-		$fail( $path, 'entity', 'DTD entities can smuggle markup past a sanitiser' );
+		$fail( $path, 'entity', 'DTD entities can smuggle markup past a sanitizer' );
 	}
 
 	$doc = new DOMDocument();

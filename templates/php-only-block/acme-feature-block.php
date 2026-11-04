@@ -3,7 +3,8 @@
  * A block written in PHP only (WordPress 7.0+, supports.autoRegister) with an
  * icon picker in its sidebar. No JavaScript of your own.
  *
- * Switch "PHP-only block icon field" on under Icons, Features. Pro then draws
+ * Switch on "PHP-only block icon field" under Easy SVG > Settings > Features.
+ * Pro then draws
  * an icon picker for every attribute marked 'unleashwp' => component icon.
  * Switched off, core shows its plain text field and the page still renders.
  *

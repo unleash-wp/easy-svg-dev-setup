@@ -2,8 +2,9 @@
 /**
  * ACF (6.3+) or Secure Custom Fields: an Icon Picker field with Easy SVG icons.
  *
- * Pro adds an "Easy SVG" tab to ACF's own icon_picker field type. Switch "ACF
- * icon picker" on under Icons, Features. The field stores the icon's address,
+ * Pro adds an "Easy SVG" tab to ACF's own icon_picker field type. Switch on
+ * "ACF icon picker" under Easy SVG > Settings > Features. The field stores the
+ * icon's address,
  * `collection/slug`, which easy_svg_icon() takes as it is.
  *
  * Drop this file into a plugin or require it from functions.php.

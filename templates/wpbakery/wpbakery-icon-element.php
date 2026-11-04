@@ -2,7 +2,8 @@
 /**
  * WPBakery Page Builder: an element of your own with the easy_svg_icon param.
  *
- * Switch "WPBakery icon element" on under Icons, Features. Pro then registers
+ * Switch on "WPBakery icon element" under Easy SVG > Settings > Features. Pro
+ * then registers
  * the param type easy_svg_icon (and its own element "Easy SVG Icon"). The param
  * stores the icon's address, `collection/slug`.
  *
