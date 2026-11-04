@@ -2,7 +2,7 @@
 
 One icon pack, Easy SVG and Easy SVG Pro on thirty client sites, from Git,
 with Composer and WP-CLI. Nothing here needs a person in wp-admin except one
-login per site to activate the licence.
+login per site to activate the license.
 
 The official guides this builds on:
 [Install with Composer](https://support.unleash-wp.com/en/help/account/composer),
@@ -45,7 +45,7 @@ the same number, so the Plugins screen agrees.
   ],
   "require": {
     "composer/installers": "^2.0",
-    "wpackagist-plugin/easy-svg": "^5.3.1",
+    "wpackagist-plugin/easy-svg": "^5.0",
     "unleashwp/easy-svg-pro": "^1.0",
     "acme/acme-icons": "^1.0"
   },
@@ -56,7 +56,7 @@ the same number, so the Plugins screen agrees.
 - `only` keeps each repository to its own packages.
 - A private pack repository needs the build server's deploy key, or
   `COMPOSER_AUTH` with a GitHub token (`github-oauth`).
-- The licence key is the password for `composer.unleash-wp.com` and never goes
+- The license key is the password for `composer.unleash-wp.com` and never goes
   into Git:
 
 ```sh
@@ -64,10 +64,10 @@ export COMPOSER_AUTH='{"http-basic":{"composer.unleash-wp.com":{"username":"unle
 composer install --no-dev --no-interaction --prefer-dist
 ```
 
-One Composer password per host means one licence per project. Give each
+One Composer password per host means one license per project. Give each
 client project its own key.
 
-## 3. The licence on each site
+## 3. The license on each site
 
 ```php
 // wp-config.php
@@ -80,19 +80,57 @@ do it: the activation runs only for a signed-in administrator.
 
 ## 4. Switch the features on
 
-Either per site with WP-CLI (every key you leave out is off):
+The free icon library first. Pro's features stay off without it:
 
 ```sh
-wp option update easy_svg_settings '{"svg_upload":true,"icons":true,"max_mb":2}' --format=json
-wp option update easy_svg_pro_features '{"collections":true,"sources":true,"cli":true}' --format=json
+wp option update easy_svg_settings '{"icons":true}' --format=json
 ```
 
-Or once for every site from a must-use plugin that filters the options, as
-the "Global settings" guide shows. With thirty sites, the mu-plugin wins: it
-ships with the code and nobody has to remember a command.
+Then Pro, best from one file that ships with your code:
+`wp-content/easy-svg-pro.json`. A switch named there is fixed: the site cannot
+change it on the Features screen, and deleting the file gives each site its
+own choice back.
 
-Add the integrations your clients use: `icon_field_acf`, `metabox`,
-`elementor`, `wpbakery`, `icon_field_blocks`.
+```json
+{
+  "features": {
+    "sets": true,
+    "cli": true,
+    "icon_field_acf": true,
+    "elementor": true
+  },
+  "environments": {
+    "production": { "features": { "abilities": false } }
+  }
+}
+```
+
+- `sets` is the **Collections** switch: icon sets, theme folders, drop-in
+  folders and pack plugins.
+- Integrations: `icon_field_acf`, `icon_field_lazyblocks`, `metabox`,
+  `elementor`, `wpbakery`, `impreza`, `avada`, `twig`, `icon_field_blocks`.
+- `environments` uses `wp_get_environment_type()`: `local`, `development`,
+  `staging` or `production`.
+- Elsewhere than `wp-content`: set `EASY_SVG_PRO_CONFIG` in `wp-config.php`
+  to the file's path. In code: the filter
+  `easy_svg_pro_config( array $config, int $site_id )`.
+
+Check what a site reads:
+
+```sh
+wp easy-svg config
+```
+
+```
+key                      value  stored
+features.sets            true   true
+features.icon_field_acf  true   false
+```
+
+`stored` is what the site had saved itself; `value` is what counts.
+
+Without the file, per site: `wp option update easy_svg_pro_features
+'{"sets":true,"cli":true}' --format=json`. Every key you leave out is then off.
 
 ## 5. Thirty sites with WP-CLI aliases
 
