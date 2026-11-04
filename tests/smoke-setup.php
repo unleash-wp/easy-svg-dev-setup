@@ -6,7 +6,7 @@
  */
 
 $features = (array) get_option( 'easy_svg_pro_features', array() );
-foreach ( array( 'sources', 'collections', 'icon_field_acf', 'metabox', 'elementor', 'wpbakery', 'icon_field_blocks', 'abilities' ) as $key ) {
+foreach ( array( 'sets', 'icon_field_acf', 'metabox', 'elementor', 'wpbakery', 'icon_field_blocks', 'abilities' ) as $key ) {
 	$features[ $key ] = true;
 }
 update_option( 'easy_svg_pro_features', $features );

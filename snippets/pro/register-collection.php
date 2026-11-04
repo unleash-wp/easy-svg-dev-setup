@@ -4,12 +4,13 @@
  *
  * easy_svg_register_icon_collection( string $slug, string $label, string|array $dir_or_icons ): void
  *
- * A collection from code. Pass a folder and it is scanned like a drop-in:
+ * A collection from code. Pass a folder and it is read like a drop-in folder:
  * manifest.json is read, every file goes through the site's sanitizer. Pass
- * slug => markup and that array is registered as it stands.
+ * slug => markup and the markup is only hardened (active parts removed), not
+ * sanitized, so use it for markup you wrote yourself.
  *
- * Needs the "Theme & folder sources" switch (and so a licence). Call it on init
- * at 10 or later: Pro registers its own folders at 9.
+ * Needs the Collections switch under Easy SVG > Settings > Features. Call it on
+ * init at priority 10: Pro reads its own folders at 9 and registers at 11.
  *
  * The slug given here names the collection. A manifest names the icons only.
  * Then: `easy_svg_icon( 'acme-ui/close', array( 'label' => __( 'Close', 'acme' ) ) )`.
@@ -28,8 +29,7 @@ add_action(
 		// A folder: acme/<file name>, or the names in its manifest.json.
 		easy_svg_register_icon_collection( 'acme', 'ACME Icons', __DIR__ . '/icons' );
 
-		// Inline markup, for two or three icons that live in code. Registered
-		// as it stands, not scanned: only markup you wrote yourself.
+		// Inline markup, for two or three icons that live in code.
 		easy_svg_register_icon_collection(
 			'acme-ui',
 			'ACME UI',

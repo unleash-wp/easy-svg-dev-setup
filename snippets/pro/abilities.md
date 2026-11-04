@@ -1,107 +1,116 @@
 # Easy SVG Pro abilities
 
-Sixty abilities under the category `easy-svg-pro`, for the WordPress 6.9+
-Abilities API and every MCP client that speaks it. All are `mcp.public`.
+An ability is a named action that WordPress (6.9 and newer) offers to code
+and to AI clients through its Abilities API. Easy SVG Pro registers up to 41
+of them under the category `easy-svg-pro`. All are marked `mcp.public`, so an
+MCP server for WordPress offers them to an AI client.
 
-- Switch **AI agent abilities** under Icons, Features. It is on by default.
+## Try it
+
+```sh
+# Every icon whose name contains "heart", from every source
+wp eval 'print_r( wp_get_ability( "easy-svg-pro/list-icons" )->execute( array( "search" => "heart" ) ) );' --user=admin
+```
+
+The answer has `items` (each with `slug`, `label`, `collection`, `source`),
+`total`, `page`, `per_page`, `has_more` and `truncated`.
+
+Over HTTP, with an application password of an administrator:
+
+```sh
+curl -u "admin:APPLICATION PASSWORD" \
+  "https://example.com/wp-json/wp-abilities/v1/abilities/easy-svg-pro/list-icons/run?input%5Bsearch%5D=heart"
+```
+
+## Rules
+
+- The switch is **AI agent abilities (MCP)** under
+  **Easy SVG > Settings > Features**. It is on by default.
 - Every call needs `manage_options` and the right of the screen behind it.
-- An ability whose feature switch is off is not registered at all, so an agent
-  is never offered something that only answers 403.
-- PHP: `wp_get_ability( 'easy-svg-pro/list-icons' )->execute( $input )`, see
-  `abilities.php`.
-- REST: `/wp-json/wp-abilities/v1/abilities/easy-svg-pro/<name>/run`. Reading
-  abilities run with GET, destructive idempotent ones with DELETE, the rest
-  with POST.
+  Without them the answer is 401 or 403.
+- An ability whose switch is off is not registered at all, so a client is
+  never offered something that can only fail.
+- The HTTP method follows the ability: GET for reading, DELETE for a
+  destructive one that is safe to repeat, POST for the rest. GET and DELETE
+  take `input` in the query string, POST takes `{"input": {...}}` as JSON.
+  The wrong method answers 405.
+- In PHP: `wp_get_ability( 'easy-svg-pro/<name>' )->execute( $input )`. See
+  `abilities.php`. `wp_get_ability()` gives `null` when the ability is not
+  registered.
 
-No ability for: the licence, a person's quick insert state, client mode,
-and deleting free library icons. Those belong to the person at the screen.
+There is no ability for the license, for a person's quick insert state or
+for deleting icons of the free library. Those stay with the person at the
+screen.
 
-## Icons and sets
+## Always there
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `list-icons` | | reads |
-| `add-icon` | | writes |
-| `add-icons-to-set` | | writes |
-| `remove-icon-from-set` | | destructive |
-| `list-collections` | | reads |
-| `icon-usage` | editor | reads |
-| `move-icons` | editor | destructive |
-| `media-markup` | editor | reads |
-| `list-sets` | editor | reads |
-| `get-set` | editor | reads |
-| `create-set` | editor | writes |
-| `rename-set` | editor | writes |
-| `relabel-set-icon` | editor | writes |
-| `save-set` | editor | destructive |
-| `replace-icons-in-set` | editor | destructive |
-| `delete-sets` | editor | destructive |
-| `restore-sets` | editor | writes |
+Registered as soon as the abilities switch is on.
 
-## Settings and features
+| Ability | Method |
+|---|---|
+| `list-icons` | GET |
+| `add-icon` | POST |
+| `add-icons-to-set` | POST |
+| `remove-icon-from-set` | DELETE |
+| `list-collections` | GET |
+| `copy-icons` | POST |
+| `get-settings` | GET |
+| `update-settings` | POST |
+| `get-features` | GET |
+| `update-features` | POST |
+| `apply-quick-setup` | POST |
+| `list-pack-collections` | GET |
+| `export-pack` | GET |
+| `export-icons-pack` | GET |
+| `export-pack-bundle` | GET |
+| `export-icon-plugin` | GET |
+| `preview-bulk-rename` | GET |
+| `bulk-rename` | POST |
+| `bulk-copy` | POST |
+| `bulk-move` | POST |
+| `get-documentation` | GET |
+| `search-documentation` | GET, asks support.unleash-wp.com |
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `get-settings` | | reads |
-| `update-settings` | | writes |
-| `get-features` | | reads |
-| `update-features` | | writes |
-| `apply-quick-setup` | | writes |
+## With the Collections switch
 
-## Packs and presets
+| Ability | Method |
+|---|---|
+| `list-sets` | GET |
+| `get-set` | GET |
+| `create-set` | POST |
+| `rename-set` | POST |
+| `relabel-set-icon` | POST |
+| `save-set` | DELETE |
+| `delete-sets` | DELETE |
+| `restore-sets` | POST |
+| `move-icons` | POST |
+| `icon-usage` | GET |
+| `media-markup` | GET |
+| `import-pack` | POST |
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `list-pack-collections` | | reads |
-| `export-pack` | | reads |
-| `export-icons-pack` | | reads |
-| `export-pack-bundle` | | reads |
-| `export-icon-plugin` | | reads |
-| `import-pack` | editor | writes |
-| `list-presets` | presets | reads |
-| `install-preset` | presets | writes |
-| `update-preset` | presets | destructive |
+## With the Templates switch
 
-## Media cleaner, repair, history
+Templates are ready-made sets from UnleashWP.
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `get-media-audit` | audit | reads |
-| `scan-media` | audit | writes |
-| `clean-media-svg` | audit | destructive |
-| `get-sources-audit` | audit | reads |
-| `scan-sources` | audit | writes |
-| `clean-stored-icon` | audit | destructive |
-| `list-originals` | audit | reads |
-| `get-original` | audit | reads |
-| `discard-original` | audit | destructive |
-| `get-repair-report` | repair | reads |
-| `scan-repair` | repair | writes |
-| `repair-svg` | repair | destructive |
-| `get-set-history` | history | reads |
-| `get-library-history` | history | reads |
-| `restore-set-version` | history | destructive |
-| `restore-library-version` | history | destructive |
+| Ability | Method |
+|---|---|
+| `list-presets` | GET |
+| `install-preset` | POST |
+| `update-preset` | DELETE |
 
-## Bulk, replace, styles
+## With the Share links switch
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `preview-bulk-rename` | bulk | reads |
-| `bulk-rename` | bulk | destructive |
-| `bulk-copy` | bulk | writes |
-| `bulk-move` | bulk | destructive |
-| `preview-replace` | replace | reads |
-| `replace-icon-everywhere` | replace | destructive |
-| `get-styles` | styles | reads |
-| `save-style-templates` | styles | destructive |
-| `assign-style` | styles | writes |
-| `get-icon-colours` | styles | reads |
-| `set-icon-colours` | styles | writes |
+| Ability | Method |
+|---|---|
+| `list-share-links` | GET |
+| `create-share-link` | POST |
+| `revoke-share-link` | DELETE |
+| `import-pack-from-link` | POST |
 
-## Documentation
+## Things that trip people up
 
-| Ability | Feature | Kind |
-|---|---|---|
-| `get-documentation` | | reads |
-| `search-documentation` | | reads, asks support.unleash-wp.com |
+- **`save-set` replaces the whole set.** It is destructive on purpose: icons
+  you leave out of the list are gone from the set. To add one icon, use
+  `add-icons-to-set`.
+- **A GET sends every value as a string.** `per_page=5` arrives as `"5"`;
+  the abilities accept that. Lists go as `input[refs][]=a&input[refs][]=b`.

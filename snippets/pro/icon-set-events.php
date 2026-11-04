@@ -3,8 +3,8 @@
  * Plugin Name: Easy SVG Pro snippet: icon set events
  *
  * Hear about every change to an icon set. Every path that writes a set comes
- * through one function: the editor, bulk editing, the importers, WP-CLI and
- * client mode.
+ * through one function: the set screen, bulk editing, the importers, WP-CLI
+ * and the abilities.
  *
  * easy_svg_pro_set_icons_writing( int $post_id ): before, the old icons still stored.
  * easy_svg_pro_set_icons_written( int $post_id, array $icons ): after.

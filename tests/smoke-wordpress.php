@@ -2,7 +2,7 @@
 /**
  * The templates in a real WordPress: wp eval-file tests/smoke-wordpress.php --user=admin
  *
- * Needs Easy SVG Support, Easy SVG Pro with a licence, ACF, Meta Box, Elementor
+ * Needs Easy SVG Support, Easy SVG Pro with a license, ACF, Meta Box, Elementor
  * and WPBakery active, the acme-icons plugin, a theme carrying
  * templates/theme/, and the templates loaded (see README, Checks). Turn the
  * features on first with tests/smoke-setup.php.

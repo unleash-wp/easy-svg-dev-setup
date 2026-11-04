@@ -5,7 +5,8 @@
  * Icon folders. Pro reads wp-content/easy-svg-icons/<folder>/ and the active
  * theme's assets/icons (child over parent) by itself. These hooks add to that.
  *
- * Needs the "Theme & folder sources" switch.
+ * Needs the Collections switch under Easy SVG > Settings > Features. A new or
+ * changed file shows up within a minute: Pro caches each folder's scan.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -28,13 +29,22 @@ add_filter(
 
 /*
  * easy_svg_pro_source_max_icons( int $max = 1000 ): icons read per folder.
- * Over it a folder is cut short and the Packs screen says what was left out.
- * Set what the pack really holds: every icon is read and sanitised on a cache miss.
+ * Over it a folder is cut short, and `wp easy-svg icons problems` says what
+ * was left out. Set what the pack really holds: every icon is read and
+ * sanitized again when the cache runs out.
  */
 add_filter(
 	'easy_svg_pro_source_max_icons',
 	static function ( $max ): int {
 		return max( (int) $max, 1400 );
+	}
+);
+
+// easy_svg_pro_source_file_max_bytes( int $bytes = 2 MB ): one file; a bigger one is skipped and reported.
+add_filter(
+	'easy_svg_pro_source_file_max_bytes',
+	static function ( $bytes ): int {
+		return max( (int) $bytes, 3 * MB_IN_BYTES );
 	}
 );
 

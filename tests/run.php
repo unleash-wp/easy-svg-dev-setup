@@ -107,6 +107,7 @@ check( 'source_dirs: kept the list, added the shared folder', '/a' === $dirs[0] 
 check( 'source_dirs: a broken list becomes an array', is_array( apply_filters( 'easy_svg_pro_source_dirs', 'broken' ) ) );
 check( 'source_dirs: pack plugin adds one folder per collection', in_array( $root . '/templates/icon-pack-plugin/icons/starter-shapes', $dirs, true ) );
 check( 'source_max_icons: never lowers', 1400 === apply_filters( 'easy_svg_pro_source_max_icons', 1000 ) && 5000 === apply_filters( 'easy_svg_pro_source_max_icons', 5000 ) );
+check( 'source_file_max_bytes: never lowers', 3 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_source_file_max_bytes', 2 * MB_IN_BYTES ) && 9 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_source_file_max_bytes', 9 * MB_IN_BYTES ) );
 check( 'theme_collection_slug: renamed', 'acme-theme' === apply_filters( 'easy_svg_pro_theme_collection_slug', 'theme' ) );
 
 check( 'registered_icon: thinner stroke in acme-outline', 'stroke-width="1.5"' === apply_filters( 'easy_svg_pro_registered_icon', 'stroke-width="2"', 'acme-outline/home' ) );
