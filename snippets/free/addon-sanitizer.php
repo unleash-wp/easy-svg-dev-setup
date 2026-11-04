@@ -9,8 +9,9 @@
  * the library is not loaded. Never build one yourself: a site that widened the
  * list would then lose what it keeps.
  *
- * EASY_SVG_API (3) changes only when that surface changes shape. Compare
- * against it, not against the plugin version.
+ * EASY_SVG_API is a number that goes up only when that surface changes shape.
+ * Compare against it, not against the plugin version. 3 is the first number
+ * with this function.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later

@@ -52,6 +52,9 @@ foreach ( $files as $file ) {
 }
 $printed = (string) ob_get_clean();
 
+// The real order: plugins load after mu-plugins, and two snippets wait for that.
+do_action( 'plugins_loaded' );
+
 // ─── Free ───────────────────────────────────────────────────────────────────
 
 check( 'render-an-icon: five calls, the qualified name', 5 === count( calls( 'easy_svg_icon' ) ) && 'easy-svg/heart' === calls( 'easy_svg_icon' )[0][1] );
@@ -80,7 +83,6 @@ check( 'registrable_icons: a non-list passes through', 'nope' === apply_filters(
 check( 'allowed_tags: view appended', array( 'svg', 'view' ) === apply_filters( 'esw_svg_allowed_tags', array( 'svg' ) ) );
 check( 'allowed_attributes: focusable appended', in_array( 'focusable', apply_filters( 'esw_svg_allowed_attributes', array() ), true ) );
 check( 'remote references: left at the default', ! isset( $GLOBALS['hooks']['esw_svg_remove_remote_references'] ) );
-check( 'max_mb_ceiling: 40', 40 === apply_filters( 'easy_svg_max_mb_ceiling', 20 ) );
 check( 'max_bytes: 5 MB', 5 * MB_IN_BYTES === apply_filters( 'easy_svg_max_bytes', MB_IN_BYTES ) );
 check( 'max_use_tags: 2000', 2000 === apply_filters( 'easy_svg_max_use_tags', 1000 ) );
 
