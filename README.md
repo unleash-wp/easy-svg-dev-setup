@@ -12,14 +12,14 @@ again for the versions you run.
 
 You need WordPress with Easy SVG Support active.
 
-**1. Switch on the icon library.** Open **Easy SVG > Icons** and click
+**1. Switch on the icon library.** Open **Easy SVG → Icons** and click
 **Switch on the icon manager**, or:
 
 ```sh
 wp option update easy_svg_settings '{"icons":true}' --format=json
 ```
 
-**2. Add an icon.** Upload any SVG in **Easy SVG > Icons** and name it
+**2. Add an icon.** Upload any SVG in **Easy SVG → Icons** and name it
 `Heart`. Or send it from code, as an administrator with an
 [application password](https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/):
 
@@ -50,7 +50,7 @@ The result is the SVG itself, inline, ready to style:
 ```
 
 **With Easy SVG Pro**, one more minute. Switch on **WP-CLI** and
-**Collections** under **Easy SVG > Settings > Features**, then:
+**Collections** under **Easy SVG → Settings → Features**, then:
 
 ```sh
 wp easy-svg icons import templates/icon-pack-plugin/icons/starter-shapes --collection=shapes
@@ -66,10 +66,10 @@ shortcode and Icon block.
   page, block and field stores this text, so keep slugs stable.
 - **Collection**: any source of icons. The free library is the collection
   `easy-svg`; Pro adds sets, folders and pack plugins.
-- **Set**: a collection you edit in Pro, under **Easy SVG > Icons**.
+- **Set**: a collection you edit in Pro, under **Easy SVG → Icons**.
 - **Pack**: a folder of SVG files with a `manifest.json`, as a folder, a
   ZIP or a plugin.
-- **Templates**: ready-made sets from UnleashWP, under **Easy SVG > Templates**.
+- **Templates**: ready-made sets from UnleashWP, under **Easy SVG → Templates**.
 - **Ability**: a named action WordPress 6.9+ offers to code and AI clients.
 
 ## What is in here
@@ -174,8 +174,8 @@ these two functions instead.
 ### Clean SVG in your own plugin
 
 `easy_svg_sanitizer()` returns the site's configured sanitizer, or `null`.
-Check `EASY_SVG_API` (3 or higher) first. File:
-`snippets/free/addon-sanitizer.php`.
+Check `EASY_SVG_API` (4 or higher, when you print what it cleans) first.
+File: `snippets/free/addon-sanitizer.php`.
 
 Trap: do not build a sanitizer of your own. It would miss what the site
 allowed or refused through the filters above.
@@ -192,9 +192,10 @@ probed for.
 
 ## Easy SVG Pro
 
-Every Pro feature has a switch under **Easy SVG > Settings > Features**. All
-are off by default, except **AI agent abilities (MCP)**. They need an active
-license and the free icon library switched on.
+Every Pro feature has a switch under **Easy SVG → Settings → Features**.
+**AI agent abilities (MCP)**, **Templates** and **Share links** start on, the
+rest start off. They need an active license and the free icon library switched
+on.
 
 ### Collections from a folder or from code
 
@@ -249,7 +250,6 @@ ability refuses.
 | `registered-icon.php` | `easy_svg_pro_registered_icon`: the markup a Pro icon gets in the Icon block |
 | `icon-set-events.php` | `easy_svg_pro_set_icons_writing`, `easy_svg_pro_set_icons_written`, `easy_svg_pro_set_write_context`, `easy_svg_pro_set_screen_redirect` |
 | `import-and-configurator.php` | `easy_svg_pro_import_max_entries`, `easy_svg_pro_import_max_total_bytes`, `easy_svg_pro_import_font_max_bytes`, `easy_svg_pro_dangerous_tags`, `easy_svg_pro_dangerous_attrs` |
-| `presets-catalog.php` | `easy_svg_pro_presets_endpoint`, `easy_svg_pro_presets_token`: the Templates catalog, for staging and tests |
 
 ## Templates
 
@@ -271,7 +271,7 @@ wpackagist. Thirty client sites, the license from `wp-config.php` and one
 configuration file for every switch: [docs/rollout.md](docs/rollout.md).
 
 **Builders and fields.** Each integration has its own switch under
-**Easy SVG > Settings > Features** and stores the same thing: the icon
+**Easy SVG → Settings → Features** and stores the same thing: the icon
 address. Render it with `easy_svg_icon()`, never with Pro's internal
 functions, so a page keeps working when Pro is deactivated.
 
