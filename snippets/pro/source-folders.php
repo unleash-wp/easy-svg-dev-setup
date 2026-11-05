@@ -5,7 +5,7 @@
  * Icon folders. Pro reads wp-content/easy-svg-icons/<folder>/ and the active
  * theme's assets/icons (child over parent) by itself. These hooks add to that.
  *
- * Needs the Collections switch under Easy SVG > Settings > Features. A new or
+ * Needs the Collections switch under Easy SVG → Settings → Features. A new or
  * changed file shows up within a minute: Pro caches each folder's scan.
  *
  * @package easy-svg-dev-setup

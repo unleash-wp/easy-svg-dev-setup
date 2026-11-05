@@ -25,7 +25,7 @@ curl -u "admin:APPLICATION PASSWORD" \
 ## Rules
 
 - The switch is **AI agent abilities (MCP)** under
-  **Easy SVG > Settings > Features**. It is on by default.
+  **Easy SVG → Settings → Features**. It is on by default.
 - Every call needs `manage_options` and the right of the screen behind it.
   Without them the answer is 401 or 403.
 - An ability whose switch is off is not registered at all, so a client is

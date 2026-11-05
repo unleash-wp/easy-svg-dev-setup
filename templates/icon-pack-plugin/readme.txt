@@ -26,7 +26,7 @@ No. Without Pro the icons stay hidden, and the plugin says so in the admin.
 
 = The icons do not show up. =
 
-Switch on "Collections" under Easy SVG > Settings > Features. New icons show
+Switch on "Collections" under Easy SVG → Settings → Features. New icons show
 up within a minute.
 
 == Changelog ==

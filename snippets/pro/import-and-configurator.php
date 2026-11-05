@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Easy SVG Pro snippet: import limits
  *
- * Bounds of the ZIP and icon font import, and the names Easy SVG > Settings >
+ * Bounds of the ZIP and icon font import, and the names Easy SVG → Settings →
  * Tags and attributes refuses to put on the allow-list.
  *
  * @package easy-svg-dev-setup

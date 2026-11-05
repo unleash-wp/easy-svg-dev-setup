@@ -9,7 +9,7 @@ The same folder ships three ways:
 
 - **As a plugin**: `templates/icon-pack-plugin/`, installed like any plugin.
 - **As a drop-in**: copied to `wp-content/easy-svg-icons/<slug>/`.
-- **As a ZIP**: imported as an icon set, in **Easy SVG > Icons** or with
+- **As a ZIP**: imported as an icon set, in **Easy SVG → Icons** or with
   `wp easy-svg pack import`.
 
 ## The manifest
@@ -31,11 +31,11 @@ The same folder ships three ways:
 - **`name` is the address**, verbatim, and must match
   `^[a-z0-9](?:[a-z0-9_-]*[a-z0-9])?$`: lower case letters, digits, `-` and
   `_`, not at the start or end. An invalid one is skipped and reported under
-  **Easy SVG > Templates** and by `wp easy-svg icons problems`, never
+  **Easy SVG → Templates** and by `wp easy-svg icons problems`, never
   rewritten. Pages point at `slug/name`, so renaming
   later breaks them.
 - **`license`, `author` and `source`** are shown with the collection under
-  **Easy SVG > Templates**. Free text, never fetched, never a link.
+  **Easy SVG → Templates**. Free text, never fetched, never a link.
 - **A manifest describes, it does not restrict.** An SVG without an entry
   still loads, named after its file.
 - **`version`** is the manifest schema, not your pack's version. Leave it at
@@ -75,7 +75,7 @@ Run `php tools/check-pack.php <folder>` before every release.
 ## Things that trip people up
 
 - **One switch.** Pro reads folders only with **Collections** on, under
-  **Easy SVG > Settings > Features**. It is off by default, and a pack cannot
+  **Easy SVG → Settings → Features**. It is off by default, and a pack cannot
   switch it on. With it on, the icons also reach the Icon block.
 - **Up to a minute.** Pro caches each folder's scan. A new or changed file
   shows up within a minute.

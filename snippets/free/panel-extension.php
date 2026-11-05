@@ -3,8 +3,8 @@
  * Plugin Name: Easy SVG snippet: admin screen extension
  *
  * Add a tab and a script of your own to the Easy SVG admin screens. Check
- * EASY_SVG_PANEL_API first: a filter cannot be probed for, and an older plugin
- * answers these hooks differently. 2 is the first number with tab capabilities.
+ * EASY_SVG_PANEL_API first: a filter cannot be probed for. A capability per
+ * tab needs 2 or higher.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -36,7 +36,7 @@ add_action(
 		);
 
 		/*
-		 * easy_svg_panel_menu_tabs( array $tabs ): tab id => label, or since API 2
+		 * easy_svg_panel_menu_tabs( array $tabs ): tab id => label, or with API 2 or higher
 		 * tab id => array( 'label' => …, 'capability' => … ). A plain label means
 		 * manage_options.
 		 */

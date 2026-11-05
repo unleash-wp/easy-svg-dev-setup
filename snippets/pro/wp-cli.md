@@ -1,6 +1,6 @@
 # Easy SVG Pro on the command line
 
-Switch on **WP-CLI** under **Easy SVG > Settings > Features**. Commands that
+Switch on **WP-CLI** under **Easy SVG → Settings → Features**. Commands that
 store an icon set (`pack import`, `fa apply`) also need **Collections**, and
 `share` needs **Share links**. A command whose switch is off stops with an
 error that names it.

@@ -2,7 +2,7 @@
 /**
  * Meta Box: the field type easy_svg_icon.
  *
- * Switch on "Meta Box icon field" under Easy SVG > Settings > Features. The
+ * Switch on "Meta Box icon field" under Easy SVG → Settings → Features. The
  * field stores the
  * icon's address, `collection/slug`, as plain post meta. clone => true is not
  * supported yet.

@@ -9,7 +9,7 @@
  * slug => markup and the markup is only hardened (active parts removed), not
  * sanitized, so use it for markup you wrote yourself.
  *
- * Needs the Collections switch under Easy SVG > Settings > Features. Call it on
+ * Needs the Collections switch under Easy SVG → Settings → Features. Call it on
  * init at priority 10: Pro reads its own folders at 9 and registers at 11.
  *
  * The slug given here names the collection. A manifest names the icons only.
