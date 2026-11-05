@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       ACME Icons
- * Description:       Icon collections for Easy SVG Support Pro. Every folder under icons/ is one collection.
+ * Description:       Icon collections for Easy SVG Pro. Every folder under icons/ is one collection.
  * Version:           1.0.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
@@ -54,7 +54,7 @@ add_action(
 		}
 		printf(
 			'<div class="notice notice-warning"><p>%s</p></div>',
-			esc_html__( 'ACME Icons needs Easy SVG Support Pro. Its icons stay hidden until Pro is active.', 'acme-icons' )
+			esc_html__( 'ACME Icons needs Easy SVG Pro. Its icons stay hidden until Pro is active.', 'acme-icons' )
 		);
 	}
 );

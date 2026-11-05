@@ -1,6 +1,6 @@
 {
   "name": "acme/acme-icons",
-  "description": "Icon collections for Easy SVG Support Pro.",
+  "description": "Icon collections for Easy SVG Pro.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "require": {

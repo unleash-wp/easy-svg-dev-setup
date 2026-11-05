@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Easy SVG Pro snippet: import limits
  *
- * Bounds of the ZIP and icon font import, and the names the configurator
- * refuses to put on the allow-list.
+ * Bounds of the ZIP and icon font import, and the names Easy SVG → Settings →
+ * Tags and attributes refuses to put on the allow-list.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -35,8 +35,7 @@ add_filter(
 
 /*
  * easy_svg_pro_dangerous_tags( array $tags ) and easy_svg_pro_dangerous_attrs( array $attrs ).
- * Pro merges your answer with its own defaults, so this can only refuse MORE.
- * Checked against includes/configurator/configurator.php.
+ * Pro merges your answer with its own defaults, so this can only refuse more.
  */
 add_filter(
 	'easy_svg_pro_dangerous_tags',

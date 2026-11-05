@@ -8,7 +8,8 @@
  * page builder element that renders through it. Not the Icon block: that one
  * draws what was registered, see filter-registrable-icons.php.
  *
- * What you return is printed as it is, so you own the escaping.
+ * What you return is printed as it is. Markup of your own goes through the
+ * site's sanitizer first, as the second example shows.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later

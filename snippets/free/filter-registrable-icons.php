@@ -16,23 +16,30 @@
  * @license GPL-2.0-or-later
  */
 
-// The hook exists only where this constant does; a filter cannot be probed for.
-if ( defined( 'EASY_SVG_ICONS_API' ) ) {
-	add_filter(
-		'easy_svg_registrable_icons',
-		static function ( $icons ) {
-			if ( ! is_array( $icons ) ) {
-				return $icons;
-			}
-			// Keep drafts of a redesign out of the inserter by a slug prefix.
-			return array_values(
-				array_filter(
-					$icons,
-					static function ( $icon ) {
-						return is_array( $icon ) && 0 !== strpos( (string) ( $icon['slug'] ?? '' ), 'wip-' );
-					}
-				)
-			);
+// plugins_loaded, because a mu-plugin loads before the plugin defines the constant.
+add_action(
+	'plugins_loaded',
+	static function () {
+		// The hook exists only where this constant does; a filter cannot be probed for.
+		if ( ! defined( 'EASY_SVG_ICONS_API' ) ) {
+			return;
 		}
-	);
-}
+		add_filter(
+			'easy_svg_registrable_icons',
+			static function ( $icons ) {
+				if ( ! is_array( $icons ) ) {
+					return $icons;
+				}
+				// Keep drafts of a redesign out of the inserter by a slug prefix.
+				return array_values(
+					array_filter(
+						$icons,
+						static function ( $icon ) {
+							return is_array( $icon ) && 0 !== strpos( (string) ( $icon['slug'] ?? '' ), 'wip-' );
+						}
+					)
+				);
+			}
+		);
+	}
+);

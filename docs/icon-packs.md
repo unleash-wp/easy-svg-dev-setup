@@ -3,13 +3,14 @@
 A pack is a folder of SVG files with a `manifest.json` beside them. Easy SVG
 Pro reads it as one collection: in the block editor, the Icon block,
 Elementor, WPBakery, ACF, Meta Box and `easy_svg_icon()`. Nothing is
-downloaded at runtime; every file is sanitised by Pro on the way in.
+downloaded while a page loads; Pro sanitizes every file on the way in.
 
 The same folder ships three ways:
 
 - **As a plugin**: `templates/icon-pack-plugin/`, installed like any plugin.
 - **As a drop-in**: copied to `wp-content/easy-svg-icons/<slug>/`.
-- **As a ZIP**: imported under **Icons, Packs, Import a pack**.
+- **As a ZIP**: imported as an icon set, in **Easy SVG → Icons** or with
+  `wp easy-svg pack import`.
 
 ## The manifest
 
@@ -28,11 +29,13 @@ The same folder ships three ways:
 ```
 
 - **`name` is the address**, verbatim, and must match
-  `^[a-z0-9](?:[a-z0-9_-]*[a-z0-9])?$`. An invalid one is skipped and reported
-  on the Packs screen, never rewritten. Pages point at `slug/name`, so renaming
+  `^[a-z0-9](?:[a-z0-9_-]*[a-z0-9])?$`: lower case letters, digits, `-` and
+  `_`, not at the start or end. An invalid one is skipped and reported under
+  **Easy SVG → Templates** and by `wp easy-svg icons problems`, never
+  rewritten. Pages point at `slug/name`, so renaming
   later breaks them.
-- **`license`, `author` and `source`** are shown under the collection on the
-  Packs screen. Free text, never fetched, never a link.
+- **`license`, `author` and `source`** are shown with the collection under
+  **Easy SVG → Templates**. Free text, never fetched, never a link.
 - **A manifest describes, it does not restrict.** An SVG without an entry
   still loads, named after its file.
 - **`version`** is the manifest schema, not your pack's version. Leave it at
@@ -58,29 +61,32 @@ Run `php tools/check-pack.php <folder>` before every release.
 - **Drawings only.** No `<script>`, no `on…` attributes, no `javascript:`.
 - **Nothing from elsewhere.** Every `href`, `src` and `url()` points inside
   the file (`#id`), and no `@import`.
-- **No DTD entities** (`<!ENTITY`). They are a known way past sanitisers.
-- **Size.** Each file under 2 MB, or Pro skips it. Under 1000 icons per
-  folder, or raise `easy_svg_pro_source_max_icons`.
+- **No DTD entities** (`<!ENTITY`). They are a known way past sanitizers.
+- **Size.** Each file under 2 MB, or Pro skips it
+  (`easy_svg_pro_source_file_max_bytes`). Under 1000 icons per folder, or
+  raise `easy_svg_pro_source_max_icons`.
 - **Unique names**, each listed once, no two file names that differ only in
   case.
 - **Plain files.** `file` is a bare name ending in `.svg`. No symbolic links.
-- **Licence fields filled.**
-- **Only icons you may pass on.** A licence to use icons on your own site is
-  not a licence to ship them in a plugin.
+- **License fields filled.**
+- **Only icons you may pass on.** A license to use icons on your own site is
+  not a license to ship them in a plugin.
 
 ## Things that trip people up
 
-- **Two switches.** Pro reads folders only with **Theme & folder sources** on,
-  and hands them to the Icon block only with **Multiple collections** on as
-  well. Both are off by default. A pack cannot switch them on.
+- **One switch.** Pro reads folders only with **Collections** on, under
+  **Easy SVG → Settings → Features**. It is off by default, and a pack cannot
+  switch it on. With it on, the icons also reach the Icon block.
+- **Up to a minute.** Pro caches each folder's scan. A new or changed file
+  shows up within a minute.
 - **The folder name is a key.** Pro keys folders by their last path segment.
   Name each folder after its collection slug, as the template does, and two
   packs only collide when they really ship the same slug.
-- **A plugin and an import of the same slug become one collection.** Use one
-  of the two ways per site.
-- **Strokes survive.** Outline icons keep their `stroke`. In the Icon block
-  that needs Easy SVG Support 5.4.0 or newer.
-- **`currentColor`** lets an icon follow the text colour.
+- **A taken slug gets a number.** Import `acme` twice and the second one is
+  `acme-2`. Pages keep pointing at the first.
+- **Strokes survive.** Outline icons keep their `stroke`, also in the Icon
+  block.
+- **`currentColor`** lets an icon follow the text color.
 
 ## The folder as a ZIP
 
@@ -90,19 +96,19 @@ Zip the contents flat, so `manifest.json` sits at the top:
 cd icons/starter-shapes && zip -X ../../starter-shapes.zip manifest.json *.svg
 ```
 
-The import needs **Icon set editor** on. Do not import the plugin ZIP itself:
-Pro reads a manifest only at the root of the archive.
+The import needs **Collections** on. A ZIP that Pro exported as a plugin
+imports as well: each collection becomes one set.
 
 ## Shipping somebody else's icons
 
-Pro's sanitiser strips comments, so a notice inside the files does not
+Pro's sanitizer strips comments, so a notice inside the files does not
 survive. Put the credit in the manifest.
 
 **Font Awesome Free**, per its own `LICENSE.txt`: the SVG icons are CC BY 4.0,
 attribution to Fonticons, Inc. (https://fontawesome.com) is a condition, and
 changes should be indicated, for example
-`"source": "Font Awesome Free 7.3.1, sanitised on import"`. Brand icons are
-trademarks of their owners; think twice before shipping `brands`.
+`"source": "Font Awesome Free, sanitized on import"`. Brand icons are
+other companies' trademarks; think twice before shipping `brands`.
 
 ## Updates
 

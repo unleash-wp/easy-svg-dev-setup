@@ -9,8 +9,9 @@
  * the library is not loaded. Never build one yourself: a site that widened the
  * list would then lose what it keeps.
  *
- * EASY_SVG_API (3) changes only when that surface changes shape. Compare
- * against it, not against the plugin version.
+ * EASY_SVG_API goes up only when that surface changes shape. Compare against
+ * it, not against the plugin version. 4 also hardens icons printed inline, so
+ * require it when you print the result.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -23,7 +24,7 @@
  * @return string
  */
 function acme_clean_svg( string $svg ): string {
-	if ( ! defined( 'EASY_SVG_API' ) || EASY_SVG_API < 3 || ! function_exists( 'easy_svg_sanitizer' ) ) {
+	if ( ! defined( 'EASY_SVG_API' ) || EASY_SVG_API < 4 || ! function_exists( 'easy_svg_sanitizer' ) ) {
 		return '';
 	}
 	$sanitizer = easy_svg_sanitizer();

@@ -9,8 +9,8 @@ declare(strict_types=1);
 define( 'ABSPATH', __DIR__ . '/' );
 define( 'WP_CONTENT_DIR', '/srv/wp-content' );
 define( 'MB_IN_BYTES', 1048576 );
-define( 'EASY_SVG_API', 3 );
-define( 'EASY_SVG_PANEL_API', 3 );
+define( 'EASY_SVG_API', 4 );
+define( 'EASY_SVG_PANEL_API', 5 );
 define( 'EASY_SVG_ICONS_API', 3 );
 
 $GLOBALS['hooks'] = array();

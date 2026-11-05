@@ -12,12 +12,13 @@
  * @license GPL-2.0-or-later
  */
 
-// esw_svg_allowed_tags( array $tags ): one more element name.
+// esw_svg_allowed_tags( array $tags ): one more element name. feDropShadow is
+// not in the sanitizer's own list, so an icon with a drop shadow loses it without this.
 add_filter(
 	'esw_svg_allowed_tags',
 	static function ( $tags ) {
 		$tags   = is_array( $tags ) ? $tags : array();
-		$tags[] = 'view';
+		$tags[] = 'feDropShadow';
 		return $tags;
 	}
 );

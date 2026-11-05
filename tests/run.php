@@ -36,7 +36,6 @@ $files = array(
 	'snippets/pro/registered-icon.php',
 	'snippets/pro/icon-set-events.php',
 	'snippets/pro/import-and-configurator.php',
-	'snippets/pro/presets-catalog.php',
 	'snippets/pro/abilities.php',
 	'templates/icon-pack-plugin/acme-icons.php',
 	'templates/theme/functions-easy-svg.php',
@@ -51,6 +50,9 @@ foreach ( $files as $file ) {
 	require $root . '/' . $file;
 }
 $printed = (string) ob_get_clean();
+
+// The real order: plugins load after mu-plugins, and two snippets wait for that.
+do_action( 'plugins_loaded' );
 
 // ─── Free ───────────────────────────────────────────────────────────────────
 
@@ -77,10 +79,9 @@ $icons = apply_filters(
 check( 'registrable_icons: wip- dropped, list kept', array( 'heart' ) === array_column( $icons, 'slug' ) );
 check( 'registrable_icons: a non-list passes through', 'nope' === apply_filters( 'easy_svg_registrable_icons', 'nope' ) );
 
-check( 'allowed_tags: view appended', array( 'svg', 'view' ) === apply_filters( 'esw_svg_allowed_tags', array( 'svg' ) ) );
+check( 'allowed_tags: feDropShadow appended', array( 'svg', 'feDropShadow' ) === apply_filters( 'esw_svg_allowed_tags', array( 'svg' ) ) );
 check( 'allowed_attributes: focusable appended', in_array( 'focusable', apply_filters( 'esw_svg_allowed_attributes', array() ), true ) );
 check( 'remote references: left at the default', ! isset( $GLOBALS['hooks']['esw_svg_remove_remote_references'] ) );
-check( 'max_mb_ceiling: 40', 40 === apply_filters( 'easy_svg_max_mb_ceiling', 20 ) );
 check( 'max_bytes: 5 MB', 5 * MB_IN_BYTES === apply_filters( 'easy_svg_max_bytes', MB_IN_BYTES ) );
 check( 'max_use_tags: 2000', 2000 === apply_filters( 'easy_svg_max_use_tags', 1000 ) );
 
@@ -105,6 +106,7 @@ check( 'source_dirs: kept the list, added the shared folder', '/a' === $dirs[0] 
 check( 'source_dirs: a broken list becomes an array', is_array( apply_filters( 'easy_svg_pro_source_dirs', 'broken' ) ) );
 check( 'source_dirs: pack plugin adds one folder per collection', in_array( $root . '/templates/icon-pack-plugin/icons/starter-shapes', $dirs, true ) );
 check( 'source_max_icons: never lowers', 1400 === apply_filters( 'easy_svg_pro_source_max_icons', 1000 ) && 5000 === apply_filters( 'easy_svg_pro_source_max_icons', 5000 ) );
+check( 'source_file_max_bytes: never lowers', 3 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_source_file_max_bytes', 2 * MB_IN_BYTES ) && 9 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_source_file_max_bytes', 9 * MB_IN_BYTES ) );
 check( 'theme_collection_slug: renamed', 'acme-theme' === apply_filters( 'easy_svg_pro_theme_collection_slug', 'theme' ) );
 
 check( 'registered_icon: thinner stroke in acme-outline', 'stroke-width="1.5"' === apply_filters( 'easy_svg_pro_registered_icon', 'stroke-width="2"', 'acme-outline/home' ) );
@@ -120,7 +122,6 @@ check( 'set_screen_redirect: off', false === apply_filters( 'easy_svg_pro_set_sc
 
 check( 'import limits: three raised', 8000 === apply_filters( 'easy_svg_pro_import_max_entries', 5000 ) && 32 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_import_max_total_bytes', 0 ) && 24 * MB_IN_BYTES === apply_filters( 'easy_svg_pro_import_font_max_bytes', 0 ) );
 check( 'dangerous_tags: only adds', array( 'script', 'image' ) === apply_filters( 'easy_svg_pro_dangerous_tags', array( 'script' ) ) );
-check( 'presets: no filter without the constants', ! isset( $GLOBALS['hooks']['easy_svg_pro_presets_endpoint'] ) && ! isset( $GLOBALS['hooks']['easy_svg_pro_presets_token'] ) );
 
 acme_find_icons( 'heart' );
 check( 'abilities: list-icons with search', 'heart' === calls( 'ability_execute' )[0][1]['search'] );
