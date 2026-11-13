@@ -115,6 +115,15 @@ class Stub_Sanitizer {
 function easy_svg_sanitizer() {
 	return new Stub_Sanitizer();
 }
+function easy_svg_max_bytes() {
+	return 2 * MB_IN_BYTES;
+}
+function easy_svg_svg_too_complex( $markup ) {
+	return substr_count( (string) $markup, '<use' ) > 3;
+}
+function easy_svg_harden_icon_markup( $markup ) {
+	return (string) preg_replace( '/<!--.*?-->/s', '', (string) $markup );
+}
 
 // Easy SVG Pro.
 define( 'EASY_SVG_PRO_FILE', '/srv/plugins/easy-svg-pro/easy-svg-pro.php' );

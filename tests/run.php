@@ -87,6 +87,9 @@ check( 'max_use_tags: 2000', 2000 === apply_filters( 'easy_svg_max_use_tags', 10
 
 check( 'write-stored-icons: both verdicts', array( 'markup' => 'updated', 'label' => 'renamed' ) === acme_replace_icon( 7, '<svg/>', ' New ' ) );
 check( 'addon-sanitizer: clean passes, script refused', '<svg/>' === acme_clean_svg( '<svg/>' ) && '' === acme_clean_svg( '<svg><script/></svg>' ) );
+check( 'addon-sanitizer: over the size bound is refused', '' === acme_clean_svg( '<svg>' . str_repeat( ' ', 2 * MB_IN_BYTES ) . '</svg>' ) );
+check( 'addon-sanitizer: too complex is refused', '' === acme_clean_svg( '<svg>' . str_repeat( '<use/>', 4 ) . '</svg>' ) );
+check( 'addon-sanitizer: the result is hardened', '<svg></svg>' === acme_clean_svg( '<svg><!--x--></svg>' ) );
 
 do_action( 'easy_svg_panel_enqueue', 'easy-svg-panel' );
 check( 'panel_enqueue: our script depends on the handle', array( 'easy-svg-panel' ) === calls( 'wp_enqueue_script' )[0][1][2] );
