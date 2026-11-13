@@ -9,8 +9,8 @@
 - `filter-registrable-icons.php` and `panel-extension.php` check the plugin's
   API number on `plugins_loaded`, so they also work as mu-plugins.
 - The abilities list, the WP-CLI commands and the upload limits match what
-  the plugins register. `addon-sanitizer.php` asks for `EASY_SVG_API` 4, the
-  number that hardens icons printed inline.
+  the plugins register. `addon-sanitizer.php` asks for `EASY_SVG_API` 1, the
+  first released number; it already hardens icons printed inline.
 - `sanitizer-allow-list.php` adds `feDropShadow`, an element the sanitizer
   does not allow on its own.
 - `presets-catalog.php` is not shipped any more. The Templates catalog is not

@@ -14,7 +14,7 @@
 add_action(
 	'plugins_loaded',
 	static function () {
-		if ( ! defined( 'EASY_SVG_PANEL_API' ) || EASY_SVG_PANEL_API < 2 ) {
+		if ( ! defined( 'EASY_SVG_PANEL_API' ) || EASY_SVG_PANEL_API < 1 ) {
 			return;
 		}
 
@@ -36,7 +36,7 @@ add_action(
 		);
 
 		/*
-		 * easy_svg_panel_menu_tabs( array $tabs ): tab id => label, or with API 2 or higher
+		 * easy_svg_panel_menu_tabs( array $tabs ): tab id => label, or
 		 * tab id => array( 'label' => …, 'capability' => … ). A plain label means
 		 * manage_options.
 		 */

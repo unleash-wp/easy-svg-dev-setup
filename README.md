@@ -174,7 +174,7 @@ these two functions instead.
 ### Clean SVG in your own plugin
 
 `easy_svg_sanitizer()` returns the site's configured sanitizer, or `null`.
-Check `EASY_SVG_API` (4 or higher, when you print what it cleans) first.
+Check `EASY_SVG_API` (1 or higher) first.
 File: `snippets/free/addon-sanitizer.php`.
 
 Trap: do not build a sanitizer of your own. It would miss what the site
