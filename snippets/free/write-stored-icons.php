@@ -2,17 +2,11 @@
 /**
  * Plugin Name: Easy SVG snippet: write stored icons
  *
- * Change a stored icon of the free library. Use these rather than
- * wp_update_post(): a re-saved post runs through kses and empties the icon for
- * anybody without unfiltered_html, and the cached icon list stays stale.
- *
  * easy_svg_update_icon_markup( int $id, string $markup ): string
- *   'updated', 'not_found', 'no_markup', 'refused' or 'failed'.
- *   The bytes pass the site's sanitizer and the upload bounds.
- *
  * easy_svg_rename_icon( int $id, string $label ): string
- *   'renamed', 'not_found', 'no_label' or 'failed'.
- *   The slug never moves: saved blocks point at it.
+ *
+ * Change a stored icon of the free library. Never through wp_update_post():
+ * kses can empty the icon.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
