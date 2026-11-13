@@ -2,16 +2,10 @@
 /**
  * Plugin Name: Easy SVG snippet: add-on sanitizer
  *
- * For add-on authors: clean SVG exactly the way this site does.
+ * easy_svg_sanitizer(): the site's sanitizer with its allow-list, or null.
  *
- * easy_svg_sanitizer() is the one function an add-on may rely on. It returns
- * an \enshrined\svgSanitize\Sanitizer with the site's allow-list, or null when
- * the library is not loaded. Never build one yourself: a site that widened the
- * list would then lose what it keeps.
- *
- * EASY_SVG_API goes up only when that surface changes shape. Compare against
- * it, not against the plugin version. 1 is the first released shape and
- * already hardens icons printed inline.
+ * Clean SVG the way this site does. Check EASY_SVG_API, not the plugin
+ * version, and never build a sanitizer yourself: it would miss the site's list.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -27,10 +21,21 @@ function acme_clean_svg( string $svg ): string {
 	if ( ! defined( 'EASY_SVG_API' ) || EASY_SVG_API < 1 || ! function_exists( 'easy_svg_sanitizer' ) ) {
 		return '';
 	}
+	// The bounds an upload meets: parsing an oversized or deeply nested file is the cost.
+	if ( function_exists( 'easy_svg_max_bytes' ) && strlen( $svg ) > easy_svg_max_bytes() ) {
+		return '';
+	}
+	if ( function_exists( 'easy_svg_svg_too_complex' ) && easy_svg_svg_too_complex( $svg ) ) {
+		return '';
+	}
 	$sanitizer = easy_svg_sanitizer();
 	if ( null === $sanitizer ) {
 		return '';
 	}
 	$clean = $sanitizer->sanitize( $svg );
-	return is_string( $clean ) ? $clean : '';
+	if ( ! is_string( $clean ) ) {
+		return '';
+	}
+	// The second layer the plugin puts on its own icons. Not promised API, so guarded.
+	return function_exists( 'easy_svg_harden_icon_markup' ) ? easy_svg_harden_icon_markup( $clean ) : $clean;
 }

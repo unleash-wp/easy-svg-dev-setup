@@ -5,8 +5,9 @@
  * The three filters that loosen a security decision. Add only what a real icon
  * set needs: every name here is something an uploaded file may then contain.
  *
- * Never add script, style, foreignObject, animate, set, animateTransform or
+ * Never add script, foreignObject, animate, set, animateTransform or
  * animateMotion. The list checks names, not what their attributes point at.
+ * style is allowed by default, so it needs no entry.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later

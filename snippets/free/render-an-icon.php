@@ -2,14 +2,9 @@
 /**
  * Print a stored icon: easy_svg_icon( string $name, array $args = array() ): string
  *
- * $name is `collection/slug`, or a bare slug for the free library (`heart` is
- * `easy-svg/heart`). An unknown icon gives '', so a template never prints a
- * broken box.
- *
- * $args: class, size, label, decorative.
+ * $name is `collection/slug`; an unknown icon gives ''. $args: class, size,
+ * label, decorative.
  * Shortcode: [easy_svg_icon name="easy-svg/heart" size="24px" label="Liked"]
- * It takes name, size, label and class. It has no decorative switch: a label
- * makes the icon meaningful, no label keeps it decorative.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
@@ -41,11 +36,6 @@ if ( function_exists( 'easy_svg_icon' ) ) {
 }
 
 /*
- * The default size for every icon, in your stylesheet:
- *
- *     .acme-button { --easy-svg-icon-size: 1.5rem; }
- *
- * An SVG whose root element carries width or height keeps that size: 'size'
- * and the custom property are then left out. Remove the two attributes from
- * the file if you want to size it.
+ * Default size in your stylesheet: .acme-button { --easy-svg-icon-size: 1.5rem; }
+ * An SVG with width or height on its root keeps that size and ignores both.
  */

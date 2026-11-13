@@ -150,8 +150,8 @@ Trap: return a list. Anything else registers no icon at all.
 `esw_svg_remove_remote_references` widen the sanitizer. File:
 `snippets/free/sanitizer-allow-list.php`.
 
-Trap: the list allows names, not what they do. Never add `script`, `style`,
-`foreignObject` or the animation elements.
+Trap: the list allows names, not what they do. Never add `script`,
+`foreignObject` or the animation elements. `style` is allowed by default.
 
 ### Limit file size and complexity
 
