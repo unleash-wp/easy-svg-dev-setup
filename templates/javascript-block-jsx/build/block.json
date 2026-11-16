@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "acme/badge-jsx",
+  "title": "Badge (JSX)",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "An icon and a label. The icon is chosen with Easy SVG Pro in the sidebar and the toolbar.",
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "acme",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
