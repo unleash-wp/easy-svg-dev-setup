@@ -57,7 +57,7 @@
 			be.BlockControls,
 			{ group: 'other' },
 			el( pro.IconToolbarButton, {
-				label: 'Choose icon',
+				// No label: Pro's own "Choose icon" comes in the editor's language.
 				value: props.attributes.icon,
 				collections: [],
 				onChange: function ( icon ) {
