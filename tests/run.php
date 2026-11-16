@@ -187,7 +187,7 @@ check( 'js block: render_callback uses the free tag', str_contains( $badge[0][2]
 check( 'js block: the label is escaped', str_contains( $badge[0][2]['render_callback']( array( 'icon' => '', 'label' => '<b>' ) ), '&lt;b&gt;' ) );
 $GLOBALS['registered_scripts'] = array( 'easy-svg-pro-icon-control' );
 foreach ( $GLOBALS['hooks']['init'] as $entry ) {
-	if ( $entry[0] instanceof Closure && str_contains( (string) ( new ReflectionFunction( $entry[0] ) )->getFileName(), 'javascript-block' ) ) {
+	if ( $entry[0] instanceof Closure && str_contains( (string) ( new ReflectionFunction( $entry[0] ) )->getFileName(), '/javascript-block/' ) ) {
 		$entry[0]();
 	}
 }
@@ -196,22 +196,26 @@ check( 'js block: with Pro it depends on the icon control', in_array( 'easy-svg-
 $editor = (string) file_get_contents( $root . '/templates/javascript-block/editor.js' );
 check( 'js block: sidebar and toolbar use the Pro components, with a fallback', str_contains( $editor, 'pro.IconControl' ) && str_contains( $editor, 'pro.IconToolbarButton' ) && str_contains( $editor, 'C.TextControl' ) );
 
-// The JSX version: block.json names the handle, PHP registers it from the built asset file.
+// The JSX version, WooCommerce style: `import ... from '@unleash-wp/easy-svg-pro'` becomes window.EasySvgPro at build time, and the handle lands in the asset file.
 $jsx_dir = $root . '/templates/javascript-block-jsx';
-$meta    = (array) json_decode( (string) file_get_contents( $jsx_dir . '/block.json' ), true );
-$jsx     = array_values( array_filter( calls( 'register_block_type' ), static fn( $c ) => $jsx_dir === $c[1] ) );
-$jsx_js  = array_values( array_filter( calls( 'wp_register_script' ), static fn( $c ) => 'acme-badge-jsx-editor' === $c[1] ) );
-$built   = require $jsx_dir . '/build/index.asset.php';
-check( 'jsx block: block.json names the editor script PHP registers', 'acme-badge-jsx-editor' === ( $meta['editorScript'] ?? '' ) && 'acme/badge-jsx' === ( $meta['name'] ?? '' ) );
-check( 'jsx block: registered from its folder with a render_callback', count( $jsx ) >= 1 && is_callable( $jsx[0][2]['render_callback'] ?? null ) );
-check( 'jsx block: the built script ships with its asset file', is_file( $jsx_dir . '/build/index.js' ) && in_array( 'wp-block-editor', $built['dependencies'], true ) );
-check( 'jsx block: the script takes the built dependencies', ! array_diff( $built['dependencies'], $jsx_js[0][3] ?? array() ) );
-check( 'jsx block: without Pro no dependency on its handle', ! in_array( 'easy-svg-pro-icon-control', $jsx_js[0][3] ?? array( 'easy-svg-pro-icon-control' ), true ) );
-check( 'jsx block: with Pro it depends on the icon control', in_array( 'easy-svg-pro-icon-control', end( $jsx_js )[3], true ) );
-check( 'jsx block: render_callback uses the free tag and escapes the label', str_contains( $jsx[0][2]['render_callback']( array( 'icon' => 'acme/star', 'label' => '<b>' ) ), 'acme/star' ) && str_contains( $jsx[0][2]['render_callback']( array( 'icon' => '', 'label' => '<b>' ) ), '&lt;b&gt;' ) );
-$jsx_src = (string) file_get_contents( $jsx_dir . '/src/index.js' );
-check( 'jsx block: JSX source uses both Pro components, with a fallback', str_contains( $jsx_src, '<IconControl' ) && str_contains( $jsx_src, '<IconToolbarButton' ) && str_contains( $jsx_src, '<TextControl' ) );
-check( 'jsx block: the build is current (src names what the build holds)', str_contains( (string) file_get_contents( $jsx_dir . '/build/index.js' ), 'IconToolbarButton' ) );
+$jsx_raw = static fn( $file ) => (string) @file_get_contents( $jsx_dir . '/' . $file );
+$meta    = (array) json_decode( $jsx_raw( 'build/block.json' ), true );
+$jsx     = array_values( array_filter( calls( 'register_block_type' ), static fn( $c ) => $jsx_dir . '/build' === $c[1] ) );
+$built   = is_file( $jsx_dir . '/build/index.asset.php' ) ? require $jsx_dir . '/build/index.asset.php' : array( 'dependencies' => array() );
+check( 'jsx block: registered from build/, where wp-scripts puts block.json', 1 === count( $jsx ) );
+check( 'jsx block: block.json brings the editor script and render.php', 'file:./index.js' === ( $meta['editorScript'] ?? '' ) && 'file:./render.php' === ( $meta['render'] ?? '' ) && is_file( $jsx_dir . '/build/render.php' ) );
+check( 'jsx block: the import put the Pro handle into the asset file', in_array( 'easy-svg-pro-icon-control', (array) $built['dependencies'], true ) && in_array( 'wp-block-editor', (array) $built['dependencies'], true ) );
+check( 'jsx block: the build reads window.EasySvgPro, no copy bundled', str_contains( $jsx_raw( 'build/index.js' ), 'window.EasySvgPro' ) && ! str_contains( $jsx_raw( 'build/index.js' ), 'EasySvgPro||' ) );
+check( 'jsx block: webpack maps the import to the global and the handle', 1 === preg_match( '/requestToExternal.*EasySvgPro/s', $jsx_raw( 'webpack.config.js' ) ) && 1 === preg_match( '/requestToHandle.*easy-svg-pro-icon-control/s', $jsx_raw( 'webpack.config.js' ) ) );
+check( 'jsx block: the source imports the Pro components', 1 === preg_match( "/import \\{[^}]*IconControl[^}]*IconToolbarButton[^}]*\\} from '@unleash-wp\\/easy-svg-pro'/", $jsx_raw( 'src/index.js' ) ) );
+check( 'jsx block: the types describe the module', str_contains( $jsx_raw( 'easy-svg-pro.d.ts' ), "declare module '@unleash-wp/easy-svg-pro'" ) );
+$render = static function ( array $attributes ) use ( $jsx_dir ) {
+	ob_start();
+	include $jsx_dir . '/src/render.php';
+	return (string) ob_get_clean();
+};
+$out = is_file( $jsx_dir . '/src/render.php' ) ? $render( array( 'icon' => 'acme/star', 'label' => '<b>' ) ) : '';
+check( 'jsx block: render.php draws through the free tag and escapes the label', str_contains( $out, 'acme/star' ) && str_contains( $out, '&lt;b&gt;' ) && str_contains( $out, 'wp-block-acme-badge-jsx' ) );
 
 // A hook snippet drops into mu-plugins as it is; render-an-icon prints and must not.
 foreach ( glob( $root . '/snippets/*/*.php' ) as $file ) {

@@ -93,7 +93,10 @@ function wp_register_script( $handle, $src, $deps = array(), $ver = false, $args
 function wp_script_is( $handle, $status = 'enqueued' ) {
 	return 'registered' === $status && in_array( $handle, $GLOBALS['registered_scripts'] ?? array(), true );
 }
-function register_block_type( $name, $args ) {
+function get_block_wrapper_attributes( $extra = array() ) {
+	return 'class="wp-block-acme-badge-jsx ' . esc_attr( $extra['class'] ?? '' ) . '"';
+}
+function register_block_type( $name, $args = array() ) {
 	$GLOBALS['calls'][] = array( 'register_block_type', $name, $args );
 }
 

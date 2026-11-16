@@ -86,7 +86,7 @@ templates/       copy and rename
   wpbakery/           a WPBakery element with the easy_svg_icon param
   php-only-block/     a block written in PHP only, with an icon picker
   javascript-block/   a block written in JavaScript, icon picker in sidebar and toolbar
-  javascript-block-jsx/  the same block in JSX, with block.json and @wordpress/scripts
+  javascript-block-jsx/  the same block in JSX: import from @unleash-wp/easy-svg-pro, block.json, render.php
 docs/icon-packs.md  manifest, security checklist, licenses
 docs/rollout.md     Composer, central configuration and WP-CLI for many sites
 tools/           pack checker, hook checker
@@ -290,10 +290,16 @@ functions, so a page keeps working when Pro is deactivated.
 the sidebar (`IconControl`) and the toolbar (`IconToolbarButton`). Without Pro
 the sidebar shows a text field and the page still draws the icon.
 
-- `templates/javascript-block/`: plain script, no build step.
-- `templates/javascript-block-jsx/`: JSX with `block.json`. `build/` is
-  committed, so it runs as it is; after changing `src/`, run
-  `npm install && npm run build` in that folder.
+- `templates/javascript-block-jsx/`: JSX, the way WordPress and WooCommerce
+  do it. `import { IconControl, IconToolbarButton } from
+  '@unleash-wp/easy-svg-pro'`, and `webpack.config.js` maps that import to
+  Pro's script on the page. It is not an npm package, so nothing is
+  downloaded. The handle `easy-svg-pro-icon-control` lands in
+  `build/index.asset.php` by itself. `render.php` draws the page with the free
+  plugin alone. The editor needs Pro. `build/` is committed; after changing
+  `src/`, run `npm install && npm run build` in that folder.
+- `templates/javascript-block/`: plain script, no build step. It loads without
+  Pro too and shows a text field then.
 
 Anywhere else the shortcode works: `[easy_svg_icon name="acme/front-door"]`.
 
