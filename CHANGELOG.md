@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `templates/javascript-block-jsx/`: the JavaScript block in JSX, with
+  `block.json` and `@wordpress/scripts`. The built files are committed.
 - `templates/javascript-block/`: a block written in JavaScript with the Pro
   icon field in the sidebar (`IconControl`) and the toolbar
   (`IconToolbarButton`), a text field without Pro, no build step.

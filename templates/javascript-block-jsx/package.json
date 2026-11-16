@@ -1,0 +1,12 @@
+{
+  "name": "acme-badge-jsx",
+  "private": true,
+  "description": "The JSX version of the Easy SVG Pro icon field template.",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "37.0.0"
+  }
+}
