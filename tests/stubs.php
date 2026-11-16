@@ -85,6 +85,14 @@ function shortcode_atts( $pairs, $atts, $tag = '' ) {
 	}
 	return $out;
 }
+function wp_register_script( $handle, $src, $deps = array(), $ver = false, $args = array() ) {
+	$GLOBALS['calls'][] = array( 'wp_register_script', $handle, $src, $deps );
+	return true;
+}
+// Set by a test: whether Easy SVG Pro registered its icon control handle.
+function wp_script_is( $handle, $status = 'enqueued' ) {
+	return 'registered' === $status && in_array( $handle, $GLOBALS['registered_scripts'] ?? array(), true );
+}
 function register_block_type( $name, $args ) {
 	$GLOBALS['calls'][] = array( 'register_block_type', $name, $args );
 }
