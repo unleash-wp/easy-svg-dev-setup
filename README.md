@@ -295,11 +295,12 @@ the sidebar shows a text field and the page still draws the icon.
   '@unleash-wp/easy-svg-pro'`, and `webpack.config.js` maps that import to
   Pro's script on the page. It is not an npm package, so nothing is
   downloaded. The handle `easy-svg-pro-icon-control` lands in
-  `build/index.asset.php` by itself. `render.php` draws the page with the free
-  plugin alone. The editor needs Pro. `build/` is committed; after changing
+  `build/index.asset.php` by itself. `render.php` draws the page. The editor
+  needs Pro; on the page, icons of your sets and of WordPress's own
+  collection need Pro active too (an ended license is enough). `build/` is committed; after changing
   `src/`, run `npm install && npm run build` in that folder.
-- `templates/javascript-block/`: plain script, no build step. It loads without
-  Pro too and shows a text field then.
+- `templates/javascript-block/`: plain script, no build step. The editor loads
+  without Pro too and shows a text field then.
 
 Anywhere else the shortcode works: `[easy_svg_icon name="acme/front-door"]`.
 

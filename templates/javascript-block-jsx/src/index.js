@@ -2,7 +2,7 @@
  * acme/badge-jsx: an icon and a label, the icon chosen with Easy SVG Pro.
  * `@unleash-wp/easy-svg-pro` works like `@wordpress/components`: webpack.config.js
  * maps it to Pro's script on the page, so this block requires Easy SVG Pro in
- * the editor. The page is drawn by render.php with the free plugin alone.
+ * the editor. The page is drawn by render.php.
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';

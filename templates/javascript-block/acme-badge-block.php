@@ -6,8 +6,9 @@
  *
  * Switch on "PHP-only blocks" under Easy SVG → Settings → Features; the same
  * switch covers JavaScript blocks. Without Pro, or with the switch off, the
- * block still loads: the sidebar falls back to a text field and the page
- * still renders the icon through the free tag.
+ * block still loads and the sidebar falls back to a text field. With the
+ * switch off the page still draws every icon; without Pro only icons of the
+ * free library.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later

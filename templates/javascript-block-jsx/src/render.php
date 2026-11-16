@@ -1,7 +1,8 @@
 <?php
 /**
- * The page output of acme/badge-jsx. It needs only Easy SVG (free): with Pro
- * deactivated the icon is still drawn.
+ * The page output of acme/badge-jsx, through Easy SVG (free)'s easy_svg_icon().
+ * Icons of your sets and of WordPress's own collection need Easy SVG Pro
+ * active; an ended license is enough. Free library icons need only Free.
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later

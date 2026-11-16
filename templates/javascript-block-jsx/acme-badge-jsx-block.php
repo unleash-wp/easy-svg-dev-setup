@@ -7,8 +7,9 @@
  * `npm install && npm run build` after changing src/.
  *
  * The editor needs Easy SVG Pro with "PHP-only blocks" switched on under
- * Easy SVG → Settings → Features. The page is drawn by render.php and needs
- * only Easy SVG (free).
+ * Easy SVG → Settings → Features. The page is drawn by render.php; icons of
+ * your sets and of WordPress's own collection need Pro active there too (an
+ * ended license is enough), free library icons need only Easy SVG (free).
  *
  * @package easy-svg-dev-setup
  * @license GPL-2.0-or-later
