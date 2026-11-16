@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `templates/javascript-block/`: a block written in JavaScript with the Pro
+  icon field in the sidebar (`IconControl`) and the toolbar
+  (`IconToolbarButton`), a text field without Pro, no build step.
+- The PHP-only switch is named as on the Features screen: **PHP-only blocks**.
 - The README starts with a two-minute path to a first icon, then one short
   section per topic: what it does, an example, the result and a trap.
 - Menu names read **Easy SVG → Settings → Features**. One **Collections**

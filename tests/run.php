@@ -44,6 +44,7 @@ $files = array(
 	'templates/elementor/acme-elementor.php',
 	'templates/wpbakery/wpbakery-icon-element.php',
 	'templates/php-only-block/acme-feature-block.php',
+	'templates/javascript-block/acme-badge-block.php',
 );
 ob_start();
 foreach ( $files as $file ) {
@@ -175,6 +176,24 @@ check( 'wpbakery: shortcode renders the icon', str_contains( $sc( array( 'icon' 
 $block = calls( 'register_block_type' )[0];
 check( 'php-only block: autoRegister and the icon marker', true === $block[2]['supports']['autoRegister'] && 'icon' === $block[2]['attributes']['iconName']['unleashwp']['component'] );
 check( 'php-only block: render_callback uses the free tag', str_contains( $block[2]['render_callback']( array( 'iconName' => 'acme/star' ) ), 'acme/star' ) );
+
+// The JavaScript block, once without Pro (the init above) and once with Pro's handle registered.
+$badge = array_values( array_filter( calls( 'register_block_type' ), static fn( $c ) => 'acme/badge' === $c[1] ) );
+$scripts = array_values( array_filter( calls( 'wp_register_script' ), static fn( $c ) => 'acme-badge-editor' === $c[1] ) );
+check( 'js block: registered with its editor script', 1 === count( $badge ) && 'acme-badge-editor' === $badge[0][2]['editor_script'] );
+check( 'js block: without Pro no dependency on its handle', 1 === count( $scripts ) && ! in_array( 'easy-svg-pro-icon-control', $scripts[0][3], true ) );
+check( 'js block: render_callback uses the free tag', str_contains( $badge[0][2]['render_callback']( array( 'icon' => 'acme/star', 'label' => '<b>' ) ), 'acme/star' ) );
+check( 'js block: the label is escaped', str_contains( $badge[0][2]['render_callback']( array( 'icon' => '', 'label' => '<b>' ) ), '&lt;b&gt;' ) );
+$GLOBALS['registered_scripts'] = array( 'easy-svg-pro-icon-control' );
+foreach ( $GLOBALS['hooks']['init'] as $entry ) {
+	if ( $entry[0] instanceof Closure && str_contains( (string) ( new ReflectionFunction( $entry[0] ) )->getFileName(), 'javascript-block' ) ) {
+		$entry[0]();
+	}
+}
+$scripts = array_values( array_filter( calls( 'wp_register_script' ), static fn( $c ) => 'acme-badge-editor' === $c[1] ) );
+check( 'js block: with Pro it depends on the icon control', in_array( 'easy-svg-pro-icon-control', end( $scripts )[3], true ) );
+$editor = (string) file_get_contents( $root . '/templates/javascript-block/editor.js' );
+check( 'js block: sidebar and toolbar use the Pro components, with a fallback', str_contains( $editor, 'pro.IconControl' ) && str_contains( $editor, 'pro.IconToolbarButton' ) && str_contains( $editor, 'C.TextControl' ) );
 
 // A hook snippet drops into mu-plugins as it is; render-an-icon prints and must not.
 foreach ( glob( $root . '/snippets/*/*.php' ) as $file ) {

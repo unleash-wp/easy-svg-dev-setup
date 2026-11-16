@@ -85,6 +85,7 @@ templates/       copy and rename
   elementor/          an Elementor widget with an icon control
   wpbakery/           a WPBakery element with the easy_svg_icon param
   php-only-block/     a block written in PHP only, with an icon picker
+  javascript-block/   a block written in JavaScript, icon picker in sidebar and toolbar
 docs/icon-packs.md  manifest, security checklist, licenses
 docs/rollout.md     Composer, central configuration and WP-CLI for many sites
 tools/           pack checker, hook checker
@@ -281,7 +282,8 @@ functions, so a page keeps working when Pro is deactivated.
 | Meta Box | Meta Box icon field | a field of type `easy_svg_icon` |
 | Elementor | Elementor icon picker | any `Controls_Manager::ICONS` control |
 | WPBakery | WPBakery icon element | a param of type `easy_svg_icon` |
-| Block editor (WordPress 7.0+) | PHP-only block icon field | an attribute with `'unleashwp' => array( 'component' => 'icon' )` |
+| Block editor (WordPress 7.0+), PHP | PHP-only blocks | an attribute with `'unleashwp' => array( 'component' => 'icon' )` |
+| Block editor (WordPress 7.0+), JavaScript | PHP-only blocks | `window.EasySvgPro.IconControl` and `IconToolbarButton`, see `templates/javascript-block/` |
 
 Anywhere else the shortcode works: `[easy_svg_icon name="acme/front-door"]`.
 
