@@ -86,6 +86,7 @@ templates/       copy and rename
   wpbakery/           a WPBakery element with the easy_svg_icon param
   php-only-block/     a block written in PHP only, with an icon picker
   javascript-block/   a block written in JavaScript, icon picker in sidebar and toolbar
+  javascript-block-jsx/  the same block in JSX, with block.json and @wordpress/scripts
 docs/icon-packs.md  manifest, security checklist, licenses
 docs/rollout.md     Composer, central configuration and WP-CLI for many sites
 tools/           pack checker, hook checker
@@ -283,7 +284,16 @@ functions, so a page keeps working when Pro is deactivated.
 | Elementor | Elementor icon picker | any `Controls_Manager::ICONS` control |
 | WPBakery | WPBakery icon element | a param of type `easy_svg_icon` |
 | Block editor (WordPress 7.0+), PHP | PHP-only blocks | an attribute with `'unleashwp' => array( 'component' => 'icon' )` |
-| Block editor (WordPress 7.0+), JavaScript | PHP-only blocks | `window.EasySvgPro.IconControl` and `IconToolbarButton`, see `templates/javascript-block/` |
+| Block editor (WordPress 7.0+), JavaScript | PHP-only blocks | `window.EasySvgPro.IconControl` and `IconToolbarButton`, see `templates/javascript-block/` (plain script) or `templates/javascript-block-jsx/` (JSX) |
+
+**JavaScript blocks.** Two versions of one block, `acme/badge`: an icon in
+the sidebar (`IconControl`) and the toolbar (`IconToolbarButton`). Without Pro
+the sidebar shows a text field and the page still draws the icon.
+
+- `templates/javascript-block/`: plain script, no build step.
+- `templates/javascript-block-jsx/`: JSX with `block.json`. `build/` is
+  committed, so it runs as it is; after changing `src/`, run
+  `npm install && npm run build` in that folder.
 
 Anywhere else the shortcode works: `[easy_svg_icon name="acme/front-door"]`.
 

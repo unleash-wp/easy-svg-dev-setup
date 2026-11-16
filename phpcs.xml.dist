@@ -6,6 +6,9 @@
 	<file>templates</file>
 
 	<arg name="extensions" value="php"/>
+	<!-- Written by @wordpress/scripts, not by hand. -->
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<arg value="sp"/>
 
 	<config name="minimum_supported_wp_version" value="6.6"/>

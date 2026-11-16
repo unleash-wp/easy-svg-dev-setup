@@ -45,6 +45,7 @@ $files = array(
 	'templates/wpbakery/wpbakery-icon-element.php',
 	'templates/php-only-block/acme-feature-block.php',
 	'templates/javascript-block/acme-badge-block.php',
+	'templates/javascript-block-jsx/acme-badge-jsx-block.php',
 );
 ob_start();
 foreach ( $files as $file ) {
@@ -194,6 +195,23 @@ $scripts = array_values( array_filter( calls( 'wp_register_script' ), static fn(
 check( 'js block: with Pro it depends on the icon control', in_array( 'easy-svg-pro-icon-control', end( $scripts )[3], true ) );
 $editor = (string) file_get_contents( $root . '/templates/javascript-block/editor.js' );
 check( 'js block: sidebar and toolbar use the Pro components, with a fallback', str_contains( $editor, 'pro.IconControl' ) && str_contains( $editor, 'pro.IconToolbarButton' ) && str_contains( $editor, 'C.TextControl' ) );
+
+// The JSX version: block.json names the handle, PHP registers it from the built asset file.
+$jsx_dir = $root . '/templates/javascript-block-jsx';
+$meta    = (array) json_decode( (string) file_get_contents( $jsx_dir . '/block.json' ), true );
+$jsx     = array_values( array_filter( calls( 'register_block_type' ), static fn( $c ) => $jsx_dir === $c[1] ) );
+$jsx_js  = array_values( array_filter( calls( 'wp_register_script' ), static fn( $c ) => 'acme-badge-jsx-editor' === $c[1] ) );
+$built   = require $jsx_dir . '/build/index.asset.php';
+check( 'jsx block: block.json names the editor script PHP registers', 'acme-badge-jsx-editor' === ( $meta['editorScript'] ?? '' ) && 'acme/badge-jsx' === ( $meta['name'] ?? '' ) );
+check( 'jsx block: registered from its folder with a render_callback', count( $jsx ) >= 1 && is_callable( $jsx[0][2]['render_callback'] ?? null ) );
+check( 'jsx block: the built script ships with its asset file', is_file( $jsx_dir . '/build/index.js' ) && in_array( 'wp-block-editor', $built['dependencies'], true ) );
+check( 'jsx block: the script takes the built dependencies', ! array_diff( $built['dependencies'], $jsx_js[0][3] ?? array() ) );
+check( 'jsx block: without Pro no dependency on its handle', ! in_array( 'easy-svg-pro-icon-control', $jsx_js[0][3] ?? array( 'easy-svg-pro-icon-control' ), true ) );
+check( 'jsx block: with Pro it depends on the icon control', in_array( 'easy-svg-pro-icon-control', end( $jsx_js )[3], true ) );
+check( 'jsx block: render_callback uses the free tag and escapes the label', str_contains( $jsx[0][2]['render_callback']( array( 'icon' => 'acme/star', 'label' => '<b>' ) ), 'acme/star' ) && str_contains( $jsx[0][2]['render_callback']( array( 'icon' => '', 'label' => '<b>' ) ), '&lt;b&gt;' ) );
+$jsx_src = (string) file_get_contents( $jsx_dir . '/src/index.js' );
+check( 'jsx block: JSX source uses both Pro components, with a fallback', str_contains( $jsx_src, '<IconControl' ) && str_contains( $jsx_src, '<IconToolbarButton' ) && str_contains( $jsx_src, '<TextControl' ) );
+check( 'jsx block: the build is current (src names what the build holds)', str_contains( (string) file_get_contents( $jsx_dir . '/build/index.js' ), 'IconToolbarButton' ) );
 
 // A hook snippet drops into mu-plugins as it is; render-an-icon prints and must not.
 foreach ( glob( $root . '/snippets/*/*.php' ) as $file ) {
