@@ -3,7 +3,7 @@
  * Plugin Name: Easy SVG Pro snippet: abilities
  *
  * Easy SVG Pro abilities (WordPress 6.9+ Abilities API), category easy-svg-pro.
- * Switch "AI agent abilities (MCP)", on by default. Every ability asks for
+ * Switch "AI agents (MCP)", on by default. Every ability asks for
  * manage_options plus the right of the screen behind it, and one whose feature
  * is off is not registered at all. Full list: abilities.md.
  *

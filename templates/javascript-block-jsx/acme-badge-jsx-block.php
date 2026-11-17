@@ -1,5 +1,9 @@
 <?php
 /**
+ * Plugin Name: ACME Badge block (JSX)
+ * Description: A block with the Easy SVG Pro icon field in the sidebar and the toolbar, written in JSX.
+ * License:     GPL-2.0-or-later
+ *
  * The JSX version of templates/javascript-block/, WooCommerce style:
  * src/index.js imports IconControl and IconToolbarButton from
  * `@unleash-wp/easy-svg-pro`, and webpack.config.js maps that import to Easy

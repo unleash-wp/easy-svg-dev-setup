@@ -3,7 +3,7 @@
  * Elementor: a widget of your own with an icon control. Loaded by
  * acme-elementor.php once Elementor is there.
  *
- * Nothing Easy SVG specific in here. Switch on "Elementor icon picker" under
+ * Nothing Easy SVG specific in here. Switch on "Elementor" under
  * Easy SVG → Settings → Features and every Controls_Manager::ICONS control, yours
  * included, gets a tab per collection. Icons_Manager::render_icon() then prints
  * the inline SVG. Every Elementor icon widget works the same way.

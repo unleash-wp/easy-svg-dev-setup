@@ -1,5 +1,9 @@
 <?php
 /**
+ * Plugin Name: ACME Feature block (PHP only)
+ * Description: A block written in PHP only, with an Easy SVG Pro icon picker in its sidebar.
+ * License:     GPL-2.0-or-later
+ *
  * A block written in PHP only (WordPress 7.0+, supports.autoRegister) with an
  * icon picker in its sidebar. No JavaScript of your own.
  *

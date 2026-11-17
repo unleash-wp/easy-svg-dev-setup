@@ -1,8 +1,8 @@
 # Easy SVG Pro abilities
 
 An ability is a named action that WordPress (6.9 and newer) offers to code
-and to AI clients through its Abilities API. Easy SVG Pro registers up to 41
-of them under the category `easy-svg-pro`. All are marked `mcp.public`, so an
+and to AI clients through its Abilities API. Easy SVG Pro registers them
+under the category `easy-svg-pro`. All are marked `mcp.public`, so an
 MCP server for WordPress offers them to an AI client.
 
 ## Try it
@@ -24,7 +24,7 @@ curl -u "admin:APPLICATION PASSWORD" \
 
 ## Rules
 
-- The switch is **AI agent abilities (MCP)** under
+- The switch is **AI agents (MCP)** under
   **Easy SVG → Settings → Features**. It is on by default.
 - Every call needs `manage_options` and the right of the screen behind it.
   Without them the answer is 401 or 403.
@@ -83,6 +83,7 @@ Registered as soon as the abilities switch is on.
 | `save-set` | DELETE |
 | `delete-sets` | DELETE |
 | `restore-sets` | POST |
+| `restore-set-icons` | POST |
 | `move-icons` | POST |
 | `icon-usage` | GET |
 | `media-markup` | GET |
@@ -98,7 +99,9 @@ Templates are ready-made sets from UnleashWP.
 | `install-preset` | POST |
 | `update-preset` | DELETE |
 
-## With the Share links switch
+## Share links
+
+Share links have no switch of their own; they follow Templates.
 
 | Ability | Method |
 |---|---|

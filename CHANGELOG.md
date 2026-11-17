@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- The names of the switches match the plugin: **AI agents (MCP)**, **ACF**,
+  **Meta Box**, **Elementor**, **WPBakery**. Share links follow **Templates**.
+- `snippets/pro/abilities.md` lists `restore-set-icons` and names no fixed
+  number of abilities.
+- The example output of `easy_svg_icon()` shows `fill="currentColor"`.
+- The block templates start with a plugin header, so each folder works as a
+  plugin.
+- README: no `?>` in a `//` comment.
 - `templates/javascript-block-jsx/`: the JavaScript block in JSX. It imports
   `IconControl` and `IconToolbarButton` from `@unleash-wp/easy-svg-pro`, which
   `webpack.config.js` maps to Pro's script, as WooCommerce does for

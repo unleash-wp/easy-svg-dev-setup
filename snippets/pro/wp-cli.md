@@ -2,7 +2,7 @@
 
 Switch on **WP-CLI** under **Easy SVG → Settings → Features**. Commands that
 store an icon set (`pack import`, `fa apply`) also need **Collections**, and
-`share` needs **Share links**. A command whose switch is off stops with an
+`share` needs **Templates**. A command whose switch is off stops with an
 error that names it.
 
 ## Try it
@@ -59,6 +59,8 @@ one folder per collection under `icons/`. Its version is the export time, so
 a newer export always installs over an older one.
 
 ## Share links
+
+They follow the **Templates** switch.
 
 A share link hands one collection to another site. It expires and can be
 revoked.

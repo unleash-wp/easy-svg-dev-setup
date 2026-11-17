@@ -1,5 +1,9 @@
 <?php
 /**
+ * Plugin Name: ACME Badge block (JavaScript)
+ * Description: A block with the Easy SVG Pro icon field in the sidebar and the toolbar, written in plain JavaScript.
+ * License:     GPL-2.0-or-later
+ *
  * A block written in JavaScript with the Easy SVG Pro icon field, in the
  * sidebar (InspectorControls) and in the block toolbar (BlockControls).
  * editor.js is plain script: no build step.
