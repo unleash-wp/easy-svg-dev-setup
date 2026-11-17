@@ -46,7 +46,7 @@ The name becomes the icon's slug, `heart`, and the slug never changes.
 The result is the SVG itself, inline, ready to style:
 
 ```html
-<svg class="easy-svg-icon" role="img" focusable="false" aria-label="Liked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">…</svg>
+<svg class="easy-svg-icon" fill="currentColor" role="img" focusable="false" aria-label="Liked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">…</svg>
 ```
 
 **With Easy SVG Pro**, one more minute. Switch on **WP-CLI** and
@@ -97,6 +97,10 @@ Every hook snippet starts with a plugin header: copy the file into
 `wp-content/mu-plugins/` and it runs. `render-an-icon.php` is template code;
 paste its lines where the icon belongs.
 
+Writing your own snippet: do not put `?>` in a `//` comment. PHP ends the
+block there, the rest of the line prints as text, and `php -l` does not
+report it. Use a `/* */` comment, or leave the characters out.
+
 ## Easy SVG Support (free)
 
 Only `easy_svg_icon()`, `easy_svg_sanitizer()`, the two write functions, the
@@ -112,7 +116,7 @@ does not exist. File: `snippets/free/render-an-icon.php`.
 echo easy_svg_icon( 'easy-svg/heart', array( 'size' => '24px', 'class' => 'acme-icon' ) );
 ```
 
-Result: `<svg class="easy-svg-icon acme-icon" style="--easy-svg-icon-size:24px" aria-hidden="true" …>`.
+Result: `<svg class="easy-svg-icon acme-icon" style="--easy-svg-icon-size:24px" fill="currentColor" aria-hidden="true" focusable="false" …>`.
 Without a `label` the icon is decorative and hidden from screen readers.
 
 Trap: an SVG with `width` or `height` on its root keeps that size and ignores
@@ -195,8 +199,8 @@ probed for.
 ## Easy SVG Pro
 
 Every Pro feature has a switch under **Easy SVG → Settings → Features**.
-**AI agent abilities (MCP)**, **Templates** and **Share links** start on, the
-rest start off. They need an active license and the free icon library switched
+**AI agents (MCP)** and **Templates** start on, the rest start off. Share
+links have no switch of their own; they follow **Templates**. They need an active license and the free icon library switched
 on.
 
 ### Collections from a folder or from code
@@ -235,7 +239,7 @@ any skip.
 
 ### Abilities
 
-Up to 41 abilities under `easy-svg-pro/`, for PHP, REST and AI clients.
+Abilities under `easy-svg-pro/`, for PHP, REST and AI clients.
 Files: `snippets/pro/abilities.php`, `snippets/pro/abilities.md`.
 
 ```sh
@@ -279,10 +283,11 @@ functions, so a page keeps working when Pro is deactivated.
 
 | Host | Switch | You write |
 |---|---|---|
-| ACF, Secure Custom Fields | ACF icon picker | an `icon_picker` field with the tab `easy_svg` |
-| Meta Box | Meta Box icon field | a field of type `easy_svg_icon` |
-| Elementor | Elementor icon picker | any `Controls_Manager::ICONS` control |
-| WPBakery | WPBakery icon element | a param of type `easy_svg_icon` |
+| ACF | ACF | an `icon_picker` field with the tab `easy_svg` |
+| Secure Custom Fields | Secure Custom Fields | the same field |
+| Meta Box | Meta Box | a field of type `easy_svg_icon` |
+| Elementor | Elementor | any `Controls_Manager::ICONS` control |
+| WPBakery | WPBakery | a param of type `easy_svg_icon` |
 | Block editor (WordPress 7.0+), PHP | PHP-only blocks | an attribute with `'unleashwp' => array( 'component' => 'icon' )` |
 | Block editor (WordPress 7.0+), JavaScript | PHP-only blocks | `window.EasySvgPro.IconControl` and `IconToolbarButton`, see `templates/javascript-block/` (plain script) or `templates/javascript-block-jsx/` (JSX) |
 
