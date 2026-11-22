@@ -334,6 +334,25 @@ php tools/check-hooks.php ../easy-svg ../easy-svg-pro
   wp eval-file tests/smoke-wordpress.php --user=admin
   ```
 
+## Working on this repository
+
+- Snippets and templates must run on PHP 7.4, because that is what gets
+  copied into client sites. `tools/` and `tests/` may use PHP 8. CI lints
+  everything on PHP 7.4 and 8.4 and runs `tests/run.php` on 8.4.
+- A new hook, function or route goes in only once it exists in the plugins'
+  code. Run `php tools/check-hooks.php <path to easy-svg> <path to
+  easy-svg-pro>` against your local copies of both plugins before a pull
+  request.
+- `phpcs` needs the WordPress Coding Standards and PHPCompatibilityWP
+  installed; CI installs them with Composer, as in
+  `.github/workflows/ci.yml`.
+- Every user-visible change gets a line under **Unreleased** in
+  `CHANGELOG.md`. There are no tags yet: the `main` branch is what people
+  copy from.
+- The JSX template's `build/` is committed. After changing
+  `templates/javascript-block-jsx/src/`, rebuild it there with
+  `npm install && npm run build` and commit the result.
+
 ## License
 
 GPL-2.0-or-later, see `LICENSE`. Copy freely into client work. Icons you add
